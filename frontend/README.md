@@ -20,5 +20,5 @@ yarn install
 yarn dev
 
 # build package
-yarn build or npm run build
+yarn build
 ```
