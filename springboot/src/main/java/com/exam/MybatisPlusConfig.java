@@ -10,12 +10,13 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @MapperScan("com.exam.service.*.mapper*")
 public class MybatisPlusConfig {
-    /**
-     * 分页插件
-     * @return
-     */
-    @Bean
-    public PaginationInterceptor paginationInterceptor() {
-        return new PaginationInterceptor();
-    }
+  /**
+   * 分页插件
+   *
+   * @return
+   */
+  @Bean
+  public PaginationInterceptor paginationInterceptor() {
+    return new PaginationInterceptor();
+  }
 }

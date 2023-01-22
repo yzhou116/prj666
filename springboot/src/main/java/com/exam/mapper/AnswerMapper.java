@@ -6,11 +6,13 @@ import com.exam.vo.AnswerVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
-
 @Mapper
 public interface AnswerMapper {
-    @Select("select question, subject, score, section,level, \"选择题\" as type from multi_question where teacher = #{username}" +
-            "union select  question, subject, score, section,level, \"判断题\" as type  from judge_question  where teacher = #{username}" +
-            "union select  question, subject, score, section,level, \"填空题\" as type from fill_question  where teacher = #{username}")
-    IPage<AnswerVO> findAll(Page page, String username);
+  @Select(
+      "select question, subject, score, section,level, \"选择题\" as type from multi_question where"
+          + " teacher = #{username}union select  question, subject, score, section,level, \"判断题\""
+          + " as type  from judge_question  where teacher = #{username}union select  question,"
+          + " subject, score, section,level, \"填空题\" as type from fill_question  where teacher ="
+          + " #{username}")
+  IPage<AnswerVO> findAll(Page page, String username);
 }

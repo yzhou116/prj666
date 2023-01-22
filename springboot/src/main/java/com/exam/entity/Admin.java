@@ -1,93 +1,93 @@
 package com.exam.entity;
 
 public class Admin {
-    private Integer adminId;
+  private Integer adminId;
 
-    private String adminName;
+  private String adminName;
 
-    private String sex;
+  private String sex;
 
-    private String tel;
+  private String tel;
 
-    private String email;
+  private String email;
 
-    private String pwd;
+  private String pwd;
 
-    private String cardId;
+  private String cardId;
 
-    private String role;
+  private String role;
 
-    private String token;
+  private String token;
 
-    public String getToken() {
-        return token;
-    }
+  public String getToken() {
+    return token;
+  }
 
-    public void setToken(String token) {
-        this.token = token;
-    }
+  public void setToken(String token) {
+    this.token = token;
+  }
 
-    public Integer getAdminId() {
-        return adminId;
-    }
+  public Integer getAdminId() {
+    return adminId;
+  }
 
-    public void setAdminId(Integer adminId) {
-        this.adminId = adminId;
-    }
+  public void setAdminId(Integer adminId) {
+    this.adminId = adminId;
+  }
 
-    public String getAdminName() {
-        return adminName;
-    }
+  public String getAdminName() {
+    return adminName;
+  }
 
-    public void setAdminName(String adminName) {
-        this.adminName = adminName == null ? null : adminName.trim();
-    }
+  public void setAdminName(String adminName) {
+    this.adminName = adminName == null ? null : adminName.trim();
+  }
 
-    public String getSex() {
-        return sex;
-    }
+  public String getSex() {
+    return sex;
+  }
 
-    public void setSex(String sex) {
-        this.sex = sex == null ? null : sex.trim();
-    }
+  public void setSex(String sex) {
+    this.sex = sex == null ? null : sex.trim();
+  }
 
-    public String getTel() {
-        return tel;
-    }
+  public String getTel() {
+    return tel;
+  }
 
-    public void setTel(String tel) {
-        this.tel = tel == null ? null : tel.trim();
-    }
+  public void setTel(String tel) {
+    this.tel = tel == null ? null : tel.trim();
+  }
 
-    public String getEmail() {
-        return email;
-    }
+  public String getEmail() {
+    return email;
+  }
 
-    public void setEmail(String email) {
-        this.email = email == null ? null : email.trim();
-    }
+  public void setEmail(String email) {
+    this.email = email == null ? null : email.trim();
+  }
 
-    public String getPwd() {
-        return pwd;
-    }
+  public String getPwd() {
+    return pwd;
+  }
 
-    public void setPwd(String pwd) {
-        this.pwd = pwd == null ? null : pwd.trim();
-    }
+  public void setPwd(String pwd) {
+    this.pwd = pwd == null ? null : pwd.trim();
+  }
 
-    public String getCardId() {
-        return cardId;
-    }
+  public String getCardId() {
+    return cardId;
+  }
 
-    public void setCardId(String cardId) {
-        this.cardId = cardId == null ? null : cardId.trim();
-    }
+  public void setCardId(String cardId) {
+    this.cardId = cardId == null ? null : cardId.trim();
+  }
 
-    public String getRole() {
-        return role;
-    }
+  public String getRole() {
+    return role;
+  }
 
-    public void setRole(String role) {
-        this.role = role == null ? null : role.trim();
-    }
+  public void setRole(String role) {
+    this.role = role == null ? null : role.trim();
+  }
 }

@@ -11,13 +11,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class AnswerServiceImpl implements AnswerService {
 
-    @Autowired
-    private AnswerMapper answerMapper;
+  @Autowired private AnswerMapper answerMapper;
 
-    @Override
-    public IPage<AnswerVO> findAll(Page<AnswerVO> page,String username) {
+  @Override
+  public IPage<AnswerVO> findAll(Page<AnswerVO> page, String username) {
 
-
-        return answerMapper.findAll(page,username);
-    }
+    return answerMapper.findAll(page, username);
+  }
 }
