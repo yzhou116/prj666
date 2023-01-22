@@ -1,94 +1,91 @@
 <!-- 添加教师 -->
 <template>
-  <section class="add">
-    <el-form ref="form" :model="form" label-width="80px">
-      <el-form-item label="Name">
+   <section class="add">
+      <el-form ref="form" :model="form" label-width="80px">
+         <el-form-item label="Name">
             <el-input v-model="form.teacherName"></el-input>
-          </el-form-item>
-          <el-form-item label="College">
+         </el-form-item>
+         <el-form-item label="College">
             <el-input v-model="form.institute"></el-input>
-          </el-form-item>
-          <el-form-item label="Sex">
+         </el-form-item>
+         <el-form-item label="Sex">
             <el-input v-model="form.sex"></el-input>
-          </el-form-item>
-          <el-form-item label="Phone">
+         </el-form-item>
+         <el-form-item label="Phone">
             <el-input v-model="form.tel"></el-input>
-          </el-form-item>
-          <el-form-item label="Password">
+         </el-form-item>
+         <el-form-item label="Password">
             <el-input v-model="form.pwd"></el-input>
-          </el-form-item>
-          <el-form-item label="ID">
+         </el-form-item>
+         <el-form-item label="ID">
             <el-input v-model="form.cardId"></el-input>
-          </el-form-item>
-          <el-form-item label="Position">
+         </el-form-item>
+         <el-form-item label="Position">
             <el-input v-model="form.type"></el-input>
-          </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="onSubmit()">Create</el-button>
-        <el-button type="text" @click="cancel()">Cancel</el-button>
-      </el-form-item>
-    </el-form>
-  </section>
+         </el-form-item>
+         <el-form-item>
+            <el-button type="primary" @click="onSubmit()">Create</el-button>
+            <el-button type="text" @click="cancel()">Cancel</el-button>
+         </el-form-item>
+      </el-form>
+   </section>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      form: { //表单数据初始化
-        studentName: null,
-        grade: null,
-        major: null,
-        clazz: null,
-        institute: null,
-        tel: null,
-        email: null,
-        pwd: null,
-        cardId: null,
-        sex: null,
-        role: 2
-      }
-    };
-  },
-  methods: {
-    onSubmit() { 
-      let tokenStr = this.$session.get('jwt')
-      const headers = 
-      {
-      
-       'Authorization' : 'Bearer ' + tokenStr
-      }//数据提交
-      this.$axios({
-       /*  url: '/api/teacher', */
-        url: 'http://localhost:8080/teacher',
-        method: 'post',
-       
-        data: {
-          ...this.form
-        },
-        headers
-        
-      }).then(res => {
-        if(res.data.code == 200) {
-          this.$message({
-            message: '数据添加成功',
-            type: 'success'
-          })
-          this.$router.push({path: '/teacherManage'})
-        }
-      })
-    },
-    cancel() { //取消按钮
-      this.form = {}
-    },
-    
-  }
+   data() {
+      return {
+         form: {
+            //表单数据初始化
+            studentName: null,
+            grade: null,
+            major: null,
+            clazz: null,
+            institute: null,
+            tel: null,
+            email: null,
+            pwd: null,
+            cardId: null,
+            sex: null,
+            role: 2,
+         },
+      };
+   },
+   methods: {
+      onSubmit() {
+         let tokenStr = this.$session.get("jwt");
+         const headers = {
+            Authorization: "Bearer " + tokenStr,
+         }; //数据提交
+         this.$axios({
+            /*  url: '/api/teacher', */
+            url: "http://localhost:8080/teacher",
+            method: "post",
+
+            data: {
+               ...this.form,
+            },
+            headers,
+         }).then((res) => {
+            if (res.data.code == 200) {
+               this.$message({
+                  message: "数据添加成功",
+                  type: "success",
+               });
+               this.$router.push({ path: "/teacherManage" });
+            }
+         });
+      },
+      cancel() {
+         //取消按钮
+         this.form = {};
+      },
+   },
 };
 </script>
 <style lang="less" scoped>
 .add {
-  padding: 0px 40px;
-  width: 400px;
+   padding: 0px 40px;
+   width: 400px;
 }
 </style>
-
