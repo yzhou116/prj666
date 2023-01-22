@@ -1,0 +1,21 @@
+name: CI
+
+on:
+   push:
+      branches: ["main"]
+   pull_request:
+      branches: ["main"]
+
+jobs:
+   build:
+      runs-on: ubuntu-latest
+      steps:
+         - uses: actions/checkout@v3
+         - uses: actions/setup-python@v4
+           with:
+              python-version: "3.10"
+         - name: Check java formatting
+           run: |
+             curl https://raw.githubusercontent.com/plume-lib/run-google-java-format/master/check-google-java-format.py -o check-google-java-format.py
+             python check-google-java-format.py
+
