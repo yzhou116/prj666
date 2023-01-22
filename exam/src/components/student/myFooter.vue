@@ -1,41 +1,45 @@
 <!--页脚部分-->
 <template>
-  <footer id="footer">
-    <ul>
-      <li><a href="javascript:;">About us</a></li>
-      <li><a href="javascript:;">Some Text</a></li>
-      <li><a href="javascript:;">User Aggreement</a></li>
-      <li><a href="http://beian.miit.gov.cn/" target="_blank">Some text here</a></li>
-      <li>@Copyright xxxx-xxxx. ALL Rights Reserved</li>
-    </ul>
-  </footer>
+   <footer id="footer">
+      <ul>
+         <li><a href="javascript:;">About us</a></li>
+         <li><a href="javascript:;">Some Text</a></li>
+         <li><a href="javascript:;">User Aggreement</a></li>
+         <li>
+            <a href="http://beian.miit.gov.cn/" target="_blank"
+               >Some text here</a
+            >
+         </li>
+         <li>@Copyright xxxx-xxxx. ALL Rights Reserved</li>
+      </ul>
+   </footer>
 </template>
 
 <script>
 export default {
-  name: "myFooter"
-}
+   name: "myFooter",
+};
 </script>
 
 <style scoped>
 #footer a {
-  color: #919698;
-  font-size: 14px;
+   color: #919698;
+   font-size: 14px;
 }
 #footer {
-  background-color: #eee;
+   background-color: #eee;
 }
 #footer ul {
-  margin-top: 40px;
-  border-top: 1px solid #d5d5d5;
-  display: flex;
-  justify-content: center;
-  height: 80px;
-  line-height: 80px;
+   margin-top: 40px;
+   border-top: 1px solid #d5d5d5;
+   display: flex;
+   justify-content: center;
+   height: 80px;
+   line-height: 80px;
 }
 #footer ul li {
-  color: #919698;
-  font-size: 14px;
-  margin-right: 20px;
+   color: #919698;
+   font-size: 14px;
+   margin-right: 20px;
 }
 </style>
