@@ -13,35 +13,35 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 public class MessageController {
 
-    @Autowired
-    private MessageServiceImpl messageService;
+  @Autowired private MessageServiceImpl messageService;
 
-    @GetMapping("/messages/{page}/{size}")
-    public ApiResult<Message> findAll(@PathVariable("page") Integer page, @PathVariable("size") Integer size) {
-        Page<Message> messagePage = new Page<>(page,size);
-        IPage<Message> all = messageService.findAll(messagePage);
-        return ApiResultHandler.buildApiResult(200,"查询所有留言",all);
-    }
+  @GetMapping("/messages/{page}/{size}")
+  public ApiResult<Message> findAll(
+      @PathVariable("page") Integer page, @PathVariable("size") Integer size) {
+    Page<Message> messagePage = new Page<>(page, size);
+    IPage<Message> all = messageService.findAll(messagePage);
+    return ApiResultHandler.buildApiResult(200, "查询所有留言", all);
+  }
 
-    @GetMapping("/message/{id}")
-    public ApiResult findById(@PathVariable("id") Integer id) {
-        Message res = messageService.findById(id);
-        return ApiResultHandler.buildApiResult(200,"根据Id查询",res);
-    }
+  @GetMapping("/message/{id}")
+  public ApiResult findById(@PathVariable("id") Integer id) {
+    Message res = messageService.findById(id);
+    return ApiResultHandler.buildApiResult(200, "根据Id查询", res);
+  }
 
-    @DeleteMapping("/message/{id}")
-    public int delete(@PathVariable("id") Integer id) {
-        int res = messageService.delete(id);
-        return res;
-    }
+  @DeleteMapping("/message/{id}")
+  public int delete(@PathVariable("id") Integer id) {
+    int res = messageService.delete(id);
+    return res;
+  }
 
-    @PostMapping("/message")
-    public ApiResult add(@RequestBody Message message) {
-        int res = messageService.add(message);
-        if (res == 0) {
-            return ApiResultHandler.buildApiResult(400,"添加失败",res);
-        } else {
-            return ApiResultHandler.buildApiResult(200,"添加成功",res);
-        }
+  @PostMapping("/message")
+  public ApiResult add(@RequestBody Message message) {
+    int res = messageService.add(message);
+    if (res == 0) {
+      return ApiResultHandler.buildApiResult(400, "添加失败", res);
+    } else {
+      return ApiResultHandler.buildApiResult(200, "添加成功", res);
     }
+  }
 }

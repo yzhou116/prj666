@@ -5,28 +5,27 @@ import lombok.Data;
 // 选择题实体
 @Data
 public class MultiQuestion {
-    private Integer questionId;
+  private Integer questionId;
 
-    private String subject;
+  private String subject;
 
-    private String section;
+  private String section;
 
-    private String answerA;
+  private String answerA;
 
-    private String answerB;
+  private String answerB;
 
-    private String answerC;
+  private String answerC;
 
-    private String answerD;
+  private String answerD;
 
-    private String question;
+  private String question;
 
-    private String level;
+  private String level;
 
-    private String rightAnswer;
+  private String rightAnswer;
 
-    private String analysis; //题目解析
+  private String analysis; // 题目解析
 
-    private Integer score;
-
+  private Integer score;
 }

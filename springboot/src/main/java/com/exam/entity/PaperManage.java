@@ -8,11 +8,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PaperManage {
-    private Integer paperId;
+  private Integer paperId;
 
-    private Integer questionType;
+  private Integer questionType;
 
-    private Integer questionId;
-
-
+  private Integer questionId;
 }

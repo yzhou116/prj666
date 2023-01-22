@@ -4,34 +4,32 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.exam.entity.ExamManage;
 import com.fasterxml.jackson.core.JsonProcessingException;
-
 import java.util.List;
 
 public interface ExamManageService {
 
-    /**
-     * 不分页查询所有考试信息
-     */
-    List<ExamManage> findAll();
-    IPage<ExamManage> findAll(Page<ExamManage> page);
+  /** 不分页查询所有考试信息 */
+  List<ExamManage> findAll();
 
-    ExamManage findById(Integer examCode);
+  IPage<ExamManage> findAll(Page<ExamManage> page);
 
-    int delete(Integer examCode);
+  ExamManage findById(Integer examCode);
 
-    int update(ExamManage exammanage);
+  int delete(Integer examCode);
 
-    int add(ExamManage exammanage);
+  int update(ExamManage exammanage);
 
-    ExamManage findOnlyPaperId();
+  int add(ExamManage exammanage);
 
-    int addStudent(String examCode, String username) throws JsonProcessingException;
+  ExamManage findOnlyPaperId();
 
-    List<ExamManage> findExamByUserName(List<ExamManage> examManage,String userCode);
+  int addStudent(String examCode, String username) throws JsonProcessingException;
 
-    List<ExamManage> findExamByUserNameWithIsPublic(String userCode);
+  List<ExamManage> findExamByUserName(List<ExamManage> examManage, String userCode);
 
-    IPage<ExamManage> teacherfindAll(Page<ExamManage> examManage, String username);
+  List<ExamManage> findExamByUserNameWithIsPublic(String userCode);
 
-    List<ExamManage> findExamByTeacherName(String username);
+  IPage<ExamManage> teacherfindAll(Page<ExamManage> examManage, String username);
+
+  List<ExamManage> findExamByTeacherName(String username);
 }

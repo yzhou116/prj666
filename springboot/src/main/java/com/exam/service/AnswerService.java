@@ -6,5 +6,5 @@ import com.exam.vo.AnswerVO;
 
 public interface AnswerService {
 
-    IPage<AnswerVO> findAll(Page<AnswerVO> page, String username);
+  IPage<AnswerVO> findAll(Page<AnswerVO> page, String username);
 }

@@ -4,113 +4,113 @@ import lombok.Data;
 
 @Data
 public class Teacher {
-    private Integer teacherId;
+  private Integer teacherId;
 
-    private String teacherName;
+  private String teacherName;
 
-    private String institute;
+  private String institute;
 
-    private String sex;
+  private String sex;
 
-    private String tel;
+  private String tel;
 
-    private String email;
+  private String email;
 
-    private String pwd;
+  private String pwd;
 
-    private String cardId;
+  private String cardId;
 
-    private String type;
+  private String type;
 
-    private String role;
+  private String role;
 
-    private String token;
+  private String token;
 
-    public Integer getTeacherId() {
-        return teacherId;
-    }
+  public Integer getTeacherId() {
+    return teacherId;
+  }
 
-    public void setTeacherId(Integer teacherId) {
-        this.teacherId = teacherId;
-    }
+  public void setTeacherId(Integer teacherId) {
+    this.teacherId = teacherId;
+  }
 
-    public String getTeacherName() {
-        return teacherName;
-    }
+  public String getTeacherName() {
+    return teacherName;
+  }
 
-    public void setTeacherName(String teacherName) {
-        this.teacherName = teacherName;
-    }
+  public void setTeacherName(String teacherName) {
+    this.teacherName = teacherName;
+  }
 
-    public String getInstitute() {
-        return institute;
-    }
+  public String getInstitute() {
+    return institute;
+  }
 
-    public void setInstitute(String institute) {
-        this.institute = institute;
-    }
+  public void setInstitute(String institute) {
+    this.institute = institute;
+  }
 
-    public String getSex() {
-        return sex;
-    }
+  public String getSex() {
+    return sex;
+  }
 
-    public void setSex(String sex) {
-        this.sex = sex;
-    }
+  public void setSex(String sex) {
+    this.sex = sex;
+  }
 
-    public String getTel() {
-        return tel;
-    }
+  public String getTel() {
+    return tel;
+  }
 
-    public void setTel(String tel) {
-        this.tel = tel;
-    }
+  public void setTel(String tel) {
+    this.tel = tel;
+  }
 
-    public String getEmail() {
-        return email;
-    }
+  public String getEmail() {
+    return email;
+  }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+  public void setEmail(String email) {
+    this.email = email;
+  }
 
-    public String getPwd() {
-        return pwd;
-    }
+  public String getPwd() {
+    return pwd;
+  }
 
-    public void setPwd(String pwd) {
-        this.pwd = pwd;
-    }
+  public void setPwd(String pwd) {
+    this.pwd = pwd;
+  }
 
-    public String getCardId() {
-        return cardId;
-    }
+  public String getCardId() {
+    return cardId;
+  }
 
-    public void setCardId(String cardId) {
-        this.cardId = cardId;
-    }
+  public void setCardId(String cardId) {
+    this.cardId = cardId;
+  }
 
-    public String getType() {
-        return type;
-    }
+  public String getType() {
+    return type;
+  }
 
-    public void setType(String type) {
-        this.type = type;
-    }
+  public void setType(String type) {
+    this.type = type;
+  }
 
-    public String getRole() {
-        return role;
-    }
+  public String getRole() {
+    return role;
+  }
 
-    public void setRole(String role) {
-        this.role = role;
-    }
+  public void setRole(String role) {
+    this.role = role;
+  }
 
-    public String getToken() {
-        return token;
-    }
+  public String getToken() {
+    return token;
+  }
 
-    public void setToken(String token) {
-        this.token = token;
-    }
+  public void setToken(String token) {
+    this.token = token;
+  }
 }

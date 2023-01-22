@@ -16,6 +16,7 @@ jobs:
               python-version: "3.10"
          - name: Check java formatting
            run: |
+             # get the file that checks formatting using google-java-format
              curl https://raw.githubusercontent.com/plume-lib/run-google-java-format/master/check-google-java-format.py -o check-google-java-format.py
              shopt -s globstar
              python check-google-java-format.py **/*.java
