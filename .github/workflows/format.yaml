@@ -17,5 +17,6 @@ jobs:
          - name: Check java formatting
            run: |
              curl https://raw.githubusercontent.com/plume-lib/run-google-java-format/master/check-google-java-format.py -o check-google-java-format.py
-             python check-google-java-format.py
+             shopt -s globstar
+             python check-google-java-format.py **/*.java
 
