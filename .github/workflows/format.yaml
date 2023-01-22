@@ -21,6 +21,6 @@ jobs:
              shopt -s globstar
              python check-google-java-format.py **/*.java
          - name: Check Js formatting
-           uses: actionsx/prettier
+           uses: actionsx/prettier@v2
            with:
              args: --check exam/ # only run prettier on js files
