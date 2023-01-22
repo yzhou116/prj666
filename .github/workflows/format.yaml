@@ -7,7 +7,7 @@ on:
       branches: ["master"]
 
 jobs:
-   checkJavaFormatting:
+  checkJavaFormatting:
       runs-on: ubuntu-latest
       steps:
          - uses: actions/checkout@v3
@@ -20,7 +20,6 @@ jobs:
              curl https://raw.githubusercontent.com/plume-lib/run-google-java-format/master/check-google-java-format.py -o check-google-java-format.py
              shopt -s globstar
              python check-google-java-format.py **/*.java
-         - uses: actions/checkout@v2
          - name: Check Js formatting
            uses: actionsx/prettier@v2
            with:
