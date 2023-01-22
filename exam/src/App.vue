@@ -1,31 +1,29 @@
 <template>
-  <div id="app">
-    <router-view/>
-  </div>
+   <div id="app">
+      <router-view />
+   </div>
 </template>
 
 <script>
-
-
-
 export default {
-  name: 'App'
-}
+   name: "App",
+};
 </script>
 
 <style>
 ul {
-  list-style: none;
+   list-style: none;
 }
 a {
-  text-decoration: none;
+   text-decoration: none;
 }
 * {
-  margin: 0;
-  padding: 0;
+   margin: 0;
+   padding: 0;
 }
 #app {
-  font-family: "Microsoft YaHei", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
-  background-color: #eee;
+   font-family: "Microsoft YaHei", "Helvetica", "Tahoma", "Geneva", "Arial",
+      sans-serif;
+   background-color: #eee;
 }
 </style>
