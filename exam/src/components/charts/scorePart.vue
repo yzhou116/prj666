@@ -14,11 +14,11 @@ export default {
       isNull: false, //是否有成绩标志位
       name: null,
       category: { //保存分数段
-        '90分及以上': 0,
-        '80-89分': 0,
-        '70-79分': 0,
-        '60-69分': 0,
-        '60分以下': 0,
+        'A+': 0,
+        'A': 0,
+        'B': 0,
+        'C': 0,
+        'F': 0,
       }
     }
   },
@@ -46,19 +46,19 @@ export default {
             switch(element.etScore / 10) {
               case 10:
               case 9:
-                this.category["Above 90"]++
+                this.category["A+"]++
                 break
               case 8:
-                this.category['80-89']++
+                this.category['A']++
                 break
               case 7:
-                this.category["70-79"]++
+                this.category["B"]++
                 break
               case 6:
-                this.category['60-69']++
+                this.category['C']++
                 break
               default:
-                this.category['Below 60']++
+                this.category['F']++
             }
           });
           let option = {
@@ -69,12 +69,12 @@ export default {
               },
               tooltip : {
                   trigger: 'item',
-                  formatter: "{a}：{b} <br/> {c}人 ({d}%)"
+                  formatter: "{a}: {b} <br/> {c}Person ({d}%)"
               },
               legend: {
                   orient: 'vertical',
                   left: 'left',
-                  data: ['Above 90','80-89','70-79','60-69','Below 60']
+                  data: ['A+','A','B','C','F']
               },
               series : [
                   {
@@ -83,11 +83,11 @@ export default {
                       radius : '35%',
                       center: ['50%', '35%'],
                       data:[
-                          {value:this.category['Above 90'], name:'Above 90'},
-                          {value:this.category['80-89'], name:'80-89'},
-                          {value:this.category['70-79'], name:'70-79'},
-                          {value:this.category['60-69'], name:'60-69'},
-                          {value:this.category['Below 60'], name:'Below 60'}
+                          {value:this.category['A+'], name:'Above 90'},
+                          {value:this.category['A'], name:'80-89'},
+                          {value:this.category['B'], name:'70-79'},
+                          {value:this.category['C'], name:'60-69'},
+                          {value:this.category['F'], name:'Below 60'}
                       ],
                       itemStyle: {
                           emphasis: {

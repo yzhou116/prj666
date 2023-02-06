@@ -29,4 +29,6 @@ public class MultiQuestion {
 
     private Integer score;
 
+    private String teacher;
+
 }

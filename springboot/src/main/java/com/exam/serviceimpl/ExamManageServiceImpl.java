@@ -104,6 +104,10 @@ public class ExamManageServiceImpl implements ExamManageService {
 
         List<ExamManage> temp = examManageMapper.findAll();
         for (int i = 0; i < temp.size(); i++) {
+            if(temp.get(i).getTeacher().equals(userName)){
+                examManage.add(temp.get(i));
+                continue;
+            }
             ExamManage examManage1 = temp.get(i);
             String arr = examManage1.getStudent();
             if(arr != null){
@@ -140,6 +144,8 @@ public class ExamManageServiceImpl implements ExamManageService {
                         examManage.add(examManage1);
                     }
                 }
+            }else{
+                examManage.add(examManage1);
             }
 
         }

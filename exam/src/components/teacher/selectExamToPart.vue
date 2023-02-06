@@ -14,7 +14,7 @@
       <el-table-column prop="tips" label="Student hint" width="400"></el-table-column>
       <el-table-column fixed="right" label="Edit" width="150">
         <template slot-scope="scope">
-          <el-button @click="toPart(scope.row.examCode,scope.row.source)" type="primary" size="small">See the Scores</el-button>
+          <el-button @click="toPart(scope.row.examCode,scope.row.source,scope.row.issurvey)" type="primary" size="small">See the Scores</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -59,7 +59,9 @@ export default {
       console.log("select exam token-> " + tokenStr);
       var username = this.$cookies.get("cname")
       this.$axios( `http://localhost:8080/teacherexams/${this.pagination.current}/${this.pagination.size}/${username}`,{headers}).then(res => {
+        debugger
           this.pagination = res.data.data
+          console.log("Data is => "+ JSON.stringify( this.pagination));
       }).catch(error => {
         console.log(error)
       })
@@ -78,8 +80,14 @@ export default {
       this.pagination.current = val
       this.getExamInfo()
     },
-    toPart(examCode,source) { //跳转到分段charts页面
-      this.$router.push({path: '/scorePart', query:{examCode: examCode, source: source}})
+    toPart(examCode,source,issurvey) { //跳转到分段charts页面
+      console.log("this is issurvey -> " + issurvey);
+      if(!issurvey){
+        this.$router.push({path: '/scorePart', query:{examCode: examCode, source: source}})
+      }else{
+        this.$router.push({path: '/surveyPart', query:{examCode: examCode, source: source}})
+      }
+      
     }
   },
 };

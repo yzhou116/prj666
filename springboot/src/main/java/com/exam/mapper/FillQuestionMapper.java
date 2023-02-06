@@ -25,8 +25,8 @@ public interface FillQuestionMapper {
     FillQuestion findOnlyQuestionId();
 
     @Options(useGeneratedKeys = true,keyProperty ="questionId" )
-    @Insert("insert into fill_question(subject,question,answer,analysis,level,section) values " +
-            "(#{subject,},#{question},#{answer},#{analysis},#{level},#{section})")
+    @Insert("insert into fill_question(subject,question,answer,analysis,level,section,teacher) values " +
+            "(#{subject,},#{question},#{answer},#{analysis},#{level},#{section}, #{teacher})")
     int add(FillQuestion fillQuestion);
 
     @Select("select questionId from fill_question where subject = #{subject} order by rand() desc limit #{pageNo}")

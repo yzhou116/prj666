@@ -5,11 +5,15 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.exam.entity.ApiResult;
 import com.exam.entity.Message;
 import com.exam.entity.Score;
+import com.exam.service.SurveyRsService;
 import com.exam.serviceimpl.ScoreServiceImpl;
 import com.exam.util.ApiResultHandler;
+import com.fasterxml.jackson.core.type.TypeReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -17,6 +21,9 @@ import java.util.List;
 public class ScoreController {
     @Autowired
     private ScoreServiceImpl scoreService;
+
+    @Autowired
+    private SurveyRsService surveyRsService;
 
     @GetMapping("/scores")
     public ApiResult findAll() {
@@ -60,4 +67,17 @@ public class ScoreController {
         List<Score> scores = scoreService.findByExamCode(examCode);
         return ApiResultHandler.buildApiResult(200,"查询成功",scores);
     }
+    @GetMapping("/surveyRes/{examCode}")
+    public ApiResult getSurveyRes(@PathVariable("examCode") Integer examCode) throws IOException {
+        List<HashMap<String, String>> res = surveyRsService.findSurveydataByExamCode(examCode);
+
+
+      //  String ress = surveyRsMapper.findResByExamCode(20190021);
+      //  TypeReference<HashMap<Integer, String>> typeRef
+      //          = new TypeReference<HashMap<Integer, String>>() {};
+      //  HashMap<Integer, String> dotdotdto = mapper.readValue(ress, typeRef);
+        return ApiResultHandler.buildApiResult(200,"查询成功",res);
+    }
+
+
 }

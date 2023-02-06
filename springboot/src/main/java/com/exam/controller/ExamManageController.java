@@ -161,7 +161,11 @@ public class ExamManageController {
 
     @PostMapping("/exam")
     public ApiResult add(@RequestBody ExamManage exammanage){
+        if(exammanage.getTotalTime() <= 0){
+            exammanage.setTotalTime(-1);
+        }
         int res = examManageService.add(exammanage);
+
         if (res ==1) {
             return ApiResultHandler.buildApiResult(200, "添加成功", res);
         } else {
@@ -186,6 +190,20 @@ public class ExamManageController {
             return ApiResultHandler.buildApiResult(200,"请求成功",res);
         }
         return ApiResultHandler.buildApiResult(400,"请求失败",res);
+    }
+//
+    //
+    @GetMapping("/anonymousExam/{examCode}/{userCode}")
+    public ApiResult getSurveyForAnonymous(@PathVariable("userCode") String username,@PathVariable("examCode") Integer examCode) throws JsonProcessingException {
+
+        System.out.println("This is usercode"+ username);
+        ExamManage res = examManageService.findById(examCode);
+        if(res == null) {
+            return ApiResultHandler.buildApiResult(10000,"考试编号不存在",null);
+        }
+        return ApiResultHandler.buildApiResult(200,"请求成功！",res);
+
+
     }
 
 }

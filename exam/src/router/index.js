@@ -9,6 +9,16 @@ export default new Router({
       name: 'login', //登录界面
       component: () => import('@/components/common/login')
     },
+    {path: '/anonymousExam',
+    name: 'anonymousExam',
+    component: () => import('@/components/student/anonymousExam')
+  },
+    {
+    path: '/anonymousanswer',
+    name: 'anonymousanswer',
+    component: () => import('@/components/student/anonymousanswer')
+  },
+
     {
       path: '/index', //教师主页
       component: () => import('@/components/admin/index'),
@@ -28,6 +38,10 @@ export default new Router({
         {
           path: '/scorePart',
           component: () => import('@/components/charts/scorePart')
+        },
+        {
+          path: '/surveyPart',
+          component: () => import('@/components/charts/surveyPart')
         },
         {
           path: '/allStudentsGrade', //所有学生成绩统计
@@ -88,6 +102,9 @@ export default new Router({
         {path:'/startExam', component: () => import('@/components/student/startExam')},
         {path: '/manager', component: () => import('@/components/student/manager')},
         {path: '/examMsg', component: () => import('@/components/student/examMsg')},
+       /*  {path: '/anonymousExam',
+        component: () => import('@/components/student/anonymousExam')
+      }, */
         {path: '/examPublic', component: () => import('@/components/student/examPublic')},
         {path: '/message', component: () => import('@/components/student/message')},
         {path: '/studentScore', component: () => import("@/components/student/answerScore")},
@@ -98,6 +115,7 @@ export default new Router({
         {path: '/scoreTable', component: () => import("@/components/student/scoreTable")}
       ]
     },
-    {path: '/answer',component: () => import('@/components/student/answer')}
+    {path: '/answer',component: () => import('@/components/student/answer')},
+   
   ]
 })

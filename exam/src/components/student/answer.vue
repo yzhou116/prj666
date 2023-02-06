@@ -99,7 +99,7 @@
             </div>
             <div class="fill" v-if="currentType == 2">
               <div v-for="(item,currentIndex) in part" :key="currentIndex">
-                <el-input placeholder="请填在此处"
+                <el-input placeholder="Please write it here"
                   v-model="fillAnswer[index][currentIndex]"
                   clearable
                   @blur="fillBG">
@@ -212,7 +212,7 @@ export default {
      let tokenStr = this.$session.get('jwt')
       const headers = 
       {
-      
+        
        'Authorization' : 'Bearer ' + tokenStr
       }
     /*   this.$axios(`http://localhost:8080/exam/${examCode}`,{headers}).then(res => {  //通过examCode请求试卷详细信息
@@ -259,7 +259,7 @@ export default {
         ///api/paper/${paperId}
         this.$axios(`http://localhost:8080/paper/${paperId}`,{headers}).then(res => {  //通过paperId获取试题题目信息
           this.topic = {...res.data}
-          console.log("this is topic -> " + this.topic)
+          console.log("this is topic -> " +JSON.stringify(this.topic))
           let reduceAnswer = this.topic[1][this.index]
           this.reduceAnswer = reduceAnswer
           let keys = Object.keys(this.topic) //对象转数组

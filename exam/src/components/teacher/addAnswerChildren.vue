@@ -429,12 +429,14 @@ export default {
       
        'Authorization' : 'Bearer ' + tokenStr
       }
+      var username = this.$cookies.get("cname")
       this.$axios({ //提交数据到选择题题库表
       /*   url: '/api/MultiQuestion', */
       url: `http://localhost:8080/MultiQuestion`,
         method: 'post',
         data: {
-          ...this.postChange          
+          ...this.postChange,
+          teacher : username      
         },
         headers
       }).then(res => { //添加成功显示提示
@@ -472,13 +474,15 @@ export default {
       
        'Authorization' : 'Bearer ' + tokenStr
       }
+      var username = this.$cookies.get("cname")
       this.postFill.subject = this.subject
       this.$axios({
        /*  url: '/api/fillQuestion', */
        url: `http://localhost:8080/fillQuestion`,
         method: 'post',
         data: {
-          ...this.postFill
+          ...this.postFill,
+          teacher : username  
         },
         headers
       }).then(res => {
@@ -492,7 +496,7 @@ export default {
         }
       }).then(() => {
         ///api/fillQuestionId
-        this.$axios(`http://localhost:8080/fillQuestionId`).then(res => { //获取当前题目的questionId
+        this.$axios(`http://localhost:8080/fillQuestionId`,{headers}).then(res => { //获取当前题目的questionId
           let questionId = res.data.data.questionId
           this.postPaper.questionId = questionId
           this.postPaper.questionType = 2
@@ -516,13 +520,15 @@ export default {
       
        'Authorization' : 'Bearer ' + tokenStr
       }
+      var username = this.$cookies.get("cname")
       this.postJudge.subject = this.subject
       this.$axios({
       /*   url: '/api/judgeQuestion', */
       url: `http://localhost:8080/judgeQuestion`,
         method: 'post',
         data: {
-          ...this.postJudge
+          ...this.postJudge,
+          teacher : username  
         },
         headers
       }).then(res => {
@@ -540,6 +546,7 @@ export default {
           let questionId = res.data.data.questionId
           this.postPaper.questionId = questionId
           this.postPaper.questionType = 3
+          headers
           this.$axios({
         /*     url: '/api/paperManage', */
         url: `http://localhost:8080/paperManage`,

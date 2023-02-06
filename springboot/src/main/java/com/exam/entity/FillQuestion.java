@@ -20,4 +20,6 @@ public class FillQuestion {
     private String section;
 
     private String analysis; //题目解析
+
+    private String teacher;
 }

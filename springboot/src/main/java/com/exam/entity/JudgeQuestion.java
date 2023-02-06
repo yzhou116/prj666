@@ -20,4 +20,6 @@ public class JudgeQuestion {
     private Integer score;
 
     private String analysis; //题目解析
+
+    private String teacher;
 }

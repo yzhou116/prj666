@@ -34,6 +34,12 @@
       <el-form-item label="Student Hint">
         <el-input type="textarea" v-model="form.tips"></el-input>
       </el-form-item>
+      <el-form-item label="Public">
+        <el-checkbox v-model="form.ispublic"></el-checkbox >
+      </el-form-item>
+      <el-form-item label="Survey">
+        <el-checkbox v-model="form.issurvey"></el-checkbox >
+      </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit()">Create it</el-button>
         <el-button type="text" @click="cancel()">Cancel</el-button>
@@ -43,6 +49,8 @@
 </template>
 
 <script>
+import { init } from 'events';
+
 export default {
   data() {
     return {
@@ -58,8 +66,11 @@ export default {
         type: null,
         tips: null,
         paperId: null,
+        ispublic : true,
+        issurvey : true
       }
     };
+    
   },
   methods: {
     formatTime(date) { //日期格式化
@@ -81,15 +92,19 @@ export default {
       
        'Authorization' : 'Bearer ' + tokenStr
       }
+      var username = this.$cookies.get("cname")
 ///api/examManagePaperId
       this.$axios(`http://localhost:8080/examManagePaperId`,{headers}).then(res => {
         this.form.paperId = res.data.data.paperId + 1 //实现paperId自增1
         this.$axios({
         /*   url: '/api/exam', */
-        url: `http://localhost:8080/exam`,
+          url: `http://localhost:8080/exam`,
           method: 'post',
           data: {
-            ...this.form
+            ...this.form,
+            teacher:username,
+       /*      ispublic : 1,
+            isSurvey : 0 */
           },
           headers
         }).then(res => {

@@ -28,6 +28,8 @@ public class PaperController {
 
     @Autowired
     private FillQuestionServiceImpl fillQuestionService;
+
+
     @GetMapping("/papers")
     public ApiResult<PaperManage> findAll() {
        ApiResult res =  ApiResultHandler.buildApiResult(200,"请求成功",paperService.findAll());
@@ -53,5 +55,17 @@ public class PaperController {
             return ApiResultHandler.buildApiResult(200,"添加成功",res);
         }
         return ApiResultHandler.buildApiResult(400,"添加失败",res);
+    }
+
+    @GetMapping("/anonymousPaper/{paperId}")
+    public Map<Integer, List<?>> findPaperForanonymous(@PathVariable("paperId") Integer paperId) {
+        List<MultiQuestion> multiQuestionRes = multiQuestionService.findByIdAndType(paperId);   //选择题题库 1
+        List<FillQuestion> fillQuestionsRes = fillQuestionService.findByIdAndType(paperId);     //填空题题库 2
+        List<JudgeQuestion> judgeQuestionRes = judgeQuestionService.findByIdAndType(paperId);   //判断题题库 3
+        Map<Integer, List<?>> map = new HashMap<>();
+        map.put(1,multiQuestionRes);
+        map.put(2,fillQuestionsRes);
+        map.put(3,judgeQuestionRes);
+        return  map;
     }
 }

@@ -32,8 +32,8 @@ public interface MultiQuestionMapper {
     MultiQuestion findOnlyQuestionId();
 
     @Options(useGeneratedKeys = true,keyProperty = "questionId")
-    @Insert("insert into multi_question(subject,question,answerA,answerB,answerC,answerD,rightAnswer,analysis,section,level) " +
-            "values(#{subject},#{question},#{answerA},#{answerB},#{answerC},#{answerD},#{rightAnswer},#{analysis},#{section},#{level})")
+    @Insert("insert into multi_question(subject,question,answerA,answerB,answerC,answerD,rightAnswer,analysis,section,level,teacher) " +
+            "values(#{subject},#{question},#{answerA},#{answerB},#{answerC},#{answerD},#{rightAnswer},#{analysis},#{section},#{level},#{teacher})")
     int add(MultiQuestion multiQuestion);
 
     @Select("select questionId from multi_question  where subject =#{subject} order by rand() desc limit #{pageNo}")

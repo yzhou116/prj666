@@ -36,5 +36,7 @@ public class ExamManage {
 
     private String student;
 
-    private Integer ispublic;
+    private boolean ispublic;
+
+    private boolean issurvey;
 }
