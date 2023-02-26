@@ -1,4 +1,4 @@
-<!-- 考试管理功能介绍 -->
+
 <template>
   <section class="description">
     <p class="title">Exam Management</p>

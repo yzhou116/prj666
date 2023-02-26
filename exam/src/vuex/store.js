@@ -21,16 +21,16 @@ const state = {
     },
     {
       index: '3',
-      title: 'See Score',
+      title: 'Result',
       icon: 'icon-performance',
-      content:[{item1:'Student Score',path:'/allStudentsGrade'},{path: '/grade'},{item2: 'See Score by result',path: '/selectExamToPart'},{path: '/scorePart'}],
+      content:[{item1:'Send Survey',path:'/allStudentsGrade'},{path: '/grade'},{item2: 'See Result',path: '/selectExamToPart'},{path: '/scorePart'}],
     },
-    {
+   /*  {
       index: '4',
       title: 'Manage Student',
       icon: 'icon-role',
       content:[{item1:'Manege Student',path:'/studentManage'},{item2: 'Add Student',path: '/addStudent'}],
-    },
+    }, */
     // {
     //   index: '5',
     //   title: '教师管理',

@@ -1,4 +1,4 @@
-<!-- 添加学生 -->
+
 <template>
   <section class="add">
     <el-form ref="form" :model="form" label-width="80px">
@@ -44,7 +44,7 @@
 export default {
   data() {
     return {
-      form: { //表单数据初始化
+      form: { 
         studentName: null,
         grade: null,
         major: null,
@@ -60,7 +60,7 @@ export default {
     };
   },
   methods: {
-    onSubmit() { //数据提交
+    onSubmit() {
       let tokenStr = this.$session.get('jwt')
       const headers = 
       {
@@ -85,7 +85,7 @@ export default {
         }
       })
     },
-    cancel() { //取消按钮
+    cancel() {
       this.form = {}
     },
     

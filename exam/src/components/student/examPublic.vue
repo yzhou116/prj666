@@ -1,4 +1,4 @@
-// 点击试卷后的缩略信息
+
 <template>
   <div id="msg">
     <div class="title">
@@ -75,9 +75,9 @@
         
       </el-collapse>
     </div>
-    <!--考生须知对话框-->
+
     <el-dialog
-      title="考生须知"
+      title="Need to know"
       :visible.sync="dialogVisible"
       width="30%">
       <span>{{examData.tips}}</span>
@@ -92,15 +92,15 @@
 export default {
   data() {
     return {
-      dialogVisible: false, //对话框属性
-      activeName: '0',  //默认打开序号
-      topicCount: [],//每种类型题目的总数
-      score: [],  //每种类型分数的总数
-      examData: { //考试信息
+      dialogVisible: false,
+      activeName: '0',  
+      topicCount: [],
+      score: [],  
+      examData: { 
         // source: null,
         // totalScore: null,
       },
-      topic: {  //试卷信息
+      topic: {  
 
       },
       visible : true
@@ -125,22 +125,23 @@ export default {
        'Authorization' : 'Bearer ' + tokenStr
       }
      var username = this.$cookies.get("cname")
-      this.$axios(`http://localhost:8080/exam/${examCode}/${username}`,{headers}).then(res => {  //通过examCode请求试卷详细信息
+      this.$axios(`http://localhost:8080/exam/${examCode}/${username}`,{headers}).then(res => {  
+        debugger
         res.data.data.examDate = res.data.data.examDate.substr(0,10)
         this.examData = { ...res.data.data}
         let paperId = this.examData.paperId
         ///api/paper/${paperId}
-        this.$axios(`http://localhost:8080/paper/${paperId}`,{headers}).then(res => {  //通过paperId获取试题题目信息
+        this.$axios(`http://localhost:8080/paper/${paperId}`,{headers}).then(res => {  
           this.topic = {...res.data}
-          let keys = Object.keys(this.topic) //对象转数组
+          let keys = Object.keys(this.topic) 
           keys.forEach(e => {
             let data = this.topic[e]
             this.topicCount.push(data.length)
             let currentScore = 0
-            for(let i = 0; i< data.length; i++) { //循环每种题型,计算出总分
+            for(let i = 0; i< data.length; i++) { 
               currentScore += data[i].score
             }
-            this.score.push(currentScore) //把每种题型总分存入score
+            this.score.push(currentScore) 
           })
         })
       })
@@ -158,32 +159,14 @@ export default {
       }
       
 
-      this.$axios(`http://localhost:8080/updateExamstudent/${username}/${examCode}`,{headers}).then(res => {  //通过paperId获取试题题目信息
+      this.$axios(`http://localhost:8080/updateExamstudent/${username}/${examCode}`,{headers}).then(res => {  
          
         console.log("this is the sub result " + res );
         debugger;
         this.visible = false
         
         })
-   
-   /*    this.$axios(
-        `http://localhost:8080//updateExamstudent/${username}/${examCode}`,{headers}
-      
-      ).then(res=>{
-        //let resData = res.data.data
-        let resData = res.data.token
-        console.log(JSON.stringify(res));
-        console.log(resData);
-        if(resData != null) {
-        }
-        if(resData == null) { //错误提示
-          this.$message({
-            showClose: true,
-            type: 'error',
-            message: '用户名或者密码错误'
-          })
-        }
-      }) */
+
 
     }
 

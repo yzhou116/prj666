@@ -1,4 +1,4 @@
-//获取试卷并跳转到添加题库
+
 <template>
   <div class="exam">
     <el-table :data="pagination.records" border>
@@ -34,11 +34,11 @@
 export default {
   data() {
     return {
-      form: {}, //保存点击以后当前试卷的信息
-      pagination: { //分页后的考试信息
-        current: 1, //当前页
-        total: null, //记录条数
-        size: 4 //每页条数
+      form: {}, 
+      pagination: { 
+        current: 1, 
+        total: null, 
+        size: 4 
       },
     }
   },
@@ -46,7 +46,7 @@ export default {
     this.getExamInfo()
   },
   methods: {
-    getExamInfo() { //分页查询所有试卷信息
+    getExamInfo() { 
       ///api/exams/${this.pagination.current}/${this.pagination.size}
       let tokenStr = this.$session.get('jwt')
       const headers = 
@@ -60,17 +60,17 @@ export default {
       }).catch(error => {
       })
     },
-    //改变当前记录条数
+
     handleSizeChange(val) {
       this.pagination.size = val
       this.getExamInfo()
     },
-    //改变当前页码，重新发送请求
+
     handleCurrentChange(val) {
       this.pagination.current = val
       this.getExamInfo()
     },
-    add(paperId,source) { //增加题库
+    add(paperId,source) { 
       this.$router.push({path:'/addAnswerChildren',query: {paperId: paperId,subject:source}})
     }
   },

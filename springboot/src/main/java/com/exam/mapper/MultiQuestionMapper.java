@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
-//选择题
+
 @Mapper
 public interface MultiQuestionMapper {
     /**
@@ -24,10 +24,6 @@ public interface MultiQuestionMapper {
     @Select("select * from multi_question")
     IPage<MultiQuestion> findAll(Page page);
 
-    /**
-     * 查询最后一条记录的questionId
-     * @return MultiQuestion
-     */
     @Select("select questionId from multi_question order by questionId desc limit 1")
     MultiQuestion findOnlyQuestionId();
 

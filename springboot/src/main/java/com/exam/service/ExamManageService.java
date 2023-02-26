@@ -9,9 +9,7 @@ import java.util.List;
 
 public interface ExamManageService {
 
-    /**
-     * 不分页查询所有考试信息
-     */
+
     List<ExamManage> findAll();
     IPage<ExamManage> findAll(Page<ExamManage> page);
 

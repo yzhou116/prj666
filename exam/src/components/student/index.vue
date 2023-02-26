@@ -1,4 +1,4 @@
-<!--学生考试首页-->
+
 <template>
   <div id="student">
     <el-row class="padding-50">
@@ -8,7 +8,7 @@
           <li><a href="javascript:;" @click="exam()">Public Exam</a></li>
           <li><a href="javascript:;" @click="practice()">My Exam</a></li>
           <li><router-link to="/scoreTable">My Score</router-link></li>
-          <li><router-link to="/message">Message me</router-link></li>
+          <li><router-link to="/message">ChatGPT</router-link></li>
          <!--  <li><router-link to="/subscript">Subscript</router-link></li> -->
           <li class="right" @mouseenter="flag = !flag" @mouseleave="flag = !flag">
             <a href="javascript:;"><i class="iconfont icon-Userselect icon"></i>{{user.userName}}</a>
@@ -20,7 +20,7 @@
         </ul>
       </el-col>
     </el-row>
-    <!--路由区域-->
+
     <div class="main">
       <router-view></router-view>
     </div>
@@ -45,13 +45,13 @@ export default {
     this.userInfo()
   },
   methods: {
-    exit() {  //退出登录
-      this.$router.push({path:"/"}) //跳转到登录页面
-      this.$cookies.remove("cname") //清除cookie
+    exit() { 
+      this.$router.push({path:"/"}) 
+      this.$cookies.remove("cname") 
       this.$cookies.remove("cid")
       this.se
     },
-    manage() {  //跳转到修改密码页面
+    manage() { 
       this.$router.push({path: '/manager'})
     },
     userInfo() {
@@ -62,12 +62,12 @@ export default {
       this.user.userName = studentName
       this.user.studentId = studentId
     },
-    practice() { //跳转练习模式
+    practice() { 
       let isPractice = true
       this.$store.commit("practice", isPractice)
       this.$router.push({path:'/startExam'})
     },
-    exam() { //跳转考试模式
+    exam() { 
      let isPractice = false
       this.$store.commit("practice", isPractice)
       this.$router.push({path:'/student'})

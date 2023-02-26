@@ -64,11 +64,8 @@ public class ExamManageServiceImpl implements ExamManageService {
 
     @Override
     public List<ExamManage> findExamByTeacherName(String username) {
-       // List<ExamManage> list = examManageMapper.findExamByTeacherName(username);
-
-
-
-        return null;
+        List<ExamManage> list = examManageMapper.findSurveyByTeacherId(username);
+        return list;
     }
 
     @Override

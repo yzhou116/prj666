@@ -33,26 +33,26 @@ public class LoginController {
         if(login.getType().equals("Admin")){
             Admin adminRes = loginService.adminLogin(username, password);
             if (adminRes != null) {
-                return ApiResultHandler.buildApiResult(200, "请求成功", adminRes);
+                return ApiResultHandler.buildApiResult(200, "Request Success", adminRes);
             }else{
-                return ApiResultHandler.buildApiResult(400, "请求失败", null);
+                return ApiResultHandler.buildApiResult(400, "Request Fail", null);
             }
         }else if(login.getType().equals("Publisher")){
             Teacher teacherRes = loginService.teacherLogin(username,password);
             if (teacherRes != null) {
-                return ApiResultHandler.buildApiResult(200, "请求成功", teacherRes);
+                return ApiResultHandler.buildApiResult(200, "Request Success", teacherRes);
             } else {
-                return ApiResultHandler.buildApiResult(400, "请求失败", null);
+                return ApiResultHandler.buildApiResult(400, "Request Fail", null);
             }
         }else if(login.getType().equals("Subscriber")){
             Student studentRes = loginService.studentLogin(username,password);
             if (studentRes != null) {
-                return ApiResultHandler.buildApiResult(200, "请求成功", studentRes);
+                return ApiResultHandler.buildApiResult(200, "Request Success", studentRes);
             }else{
-                return ApiResultHandler.buildApiResult(400, "请求失败", null);
+                return ApiResultHandler.buildApiResult(400, "Request Fail", null);
             }
         }
-        return ApiResultHandler.buildApiResult(400, "请求失败", null);
+        return ApiResultHandler.buildApiResult(400, "Request Fail", null);
     }
     @PostMapping("/updatelogin")
     public ApiResult loginupdate(@RequestBody Login login){
@@ -62,30 +62,28 @@ public class LoginController {
         if(login.getType().equals("Admin")){
             Admin adminRes = loginService.adminLogin(username, password);
             if (adminRes != null) {
-                return ApiResultHandler.buildApiResult(200, "请求成功", adminRes);
+                return ApiResultHandler.buildApiResult(200, "Request Success", adminRes);
             }else{
-                return ApiResultHandler.buildApiResult(400, "请求失败", null);
+                return ApiResultHandler.buildApiResult(400, "Request Fail", null);
             }
         }else if(login.getType().equals("Publisher")){
             Teacher teacherRes = loginService.teacherLogin(username,password);
             if (teacherRes != null) {
-                return ApiResultHandler.buildApiResult(200, "请求成功", teacherRes);
+                return ApiResultHandler.buildApiResult(200, "Request Success", teacherRes);
             } else {
-                return ApiResultHandler.buildApiResult(400, "请求失败", null);
+                return ApiResultHandler.buildApiResult(400, "Request Fail", null);
             }
         }else if(login.getType().equals("Subscriber")){
-         //   BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+            //   BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
        //     password = bCryptPasswordEncoder.encode(password);
             int studentRes = loginService.updatestudentLogin(username,password);
             if (studentRes == 1) {
-                return ApiResultHandler.buildApiResult(200, "请求成功", studentRes);
+                return ApiResultHandler.buildApiResult(200, "Request Success", studentRes);
             }else{
-                return ApiResultHandler.buildApiResult(400, "请求失败", null);
+                return ApiResultHandler.buildApiResult(400, "Request Fail", null);
             }
         }
-        return ApiResultHandler.buildApiResult(400, "请求失败", null);
-
-
+        return ApiResultHandler.buildApiResult(400, "Request Fail", null);
     }
 
 

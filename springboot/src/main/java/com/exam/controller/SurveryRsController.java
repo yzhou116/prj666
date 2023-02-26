@@ -31,7 +31,7 @@ public class SurveryRsController {
 
 
         ApiResult apiResult;
-        apiResult = ApiResultHandler.buildApiResult(200, "请求成功！", res);
+        apiResult = ApiResultHandler.buildApiResult(200, "Request Success", res);
         return apiResult;
     }
 }

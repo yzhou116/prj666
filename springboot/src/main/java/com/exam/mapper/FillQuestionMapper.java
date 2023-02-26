@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
-//填空题
+
 @Mapper
 public interface FillQuestionMapper {
 
@@ -17,10 +17,7 @@ public interface FillQuestionMapper {
     @Select("select * from fill_question")
     IPage<FillQuestion> findAll(Page page);
 
-    /**
-     * 查询最后一条questionId
-     * @return FillQuestion
-     */
+
     @Select("select questionId from fill_question order by questionId desc limit 1")
     FillQuestion findOnlyQuestionId();
 

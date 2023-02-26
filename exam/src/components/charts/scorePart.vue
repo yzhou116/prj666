@@ -2,7 +2,7 @@
   <div class="part" >
     <div class="box" ref="box"></div>
     <div v-if="isNull">
-      <span>该门考试还没人参考哦,请提醒学生参加考试。</span>
+      <span>There is no result for this exam</span>
     </div>
   </div>
 </template>
@@ -11,9 +11,9 @@
 export default {
   data() {
     return {
-      isNull: false, //是否有成绩标志位
+      isNull: false, 
       name: null,
-      category: { //保存分数段
+      category: { 
         'A+': 0,
         'A': 0,
         'B': 0,
@@ -38,12 +38,14 @@ export default {
        'Authorization' : 'Bearer ' + tokenStr
       }
       this.$axios(`http://localhost:8080/scores/${examCode}`,{headers}).then(res => {
+        debugger
         let data = res.data.data
         if(data.length > 0) {
           let box = this.$refs['box']
           let charts = this.$echarts.init(box)
           data.forEach(element => {
-            switch(element.etScore / 10) {
+          /*  switch(element.etScore / 10) {
+          
               case 10:
               case 9:
                 this.category["A+"]++
@@ -59,6 +61,17 @@ export default {
                 break
               default:
                 this.category['F']++
+            } */
+            if(element.etScore / element.score >= 0.9){
+              this.category["A+"]++
+            }else if(element.etScore / element.score >= 0.8){
+              this.category["A"]++
+            }else if(element.etScore / element.score >= 0.7){
+              this.category["B"]++
+            }else if(element.etScore / element.score >= 0.7){
+              this.category['C']++
+            }else{
+              this.category['F']++
             }
           });
           let option = {
@@ -83,11 +96,11 @@ export default {
                       radius : '35%',
                       center: ['50%', '35%'],
                       data:[
-                          {value:this.category['A+'], name:'Above 90'},
-                          {value:this.category['A'], name:'80-89'},
-                          {value:this.category['B'], name:'70-79'},
-                          {value:this.category['C'], name:'60-69'},
-                          {value:this.category['F'], name:'Below 60'}
+                          {value:this.category['A+'], name:'A+'},
+                          {value:this.category['A'], name:'A'},
+                          {value:this.category['B'], name:'B'},
+                          {value:this.category['C'], name:'C'},
+                          {value:this.category['F'], name:'F'}
                       ],
                       itemStyle: {
                           emphasis: {

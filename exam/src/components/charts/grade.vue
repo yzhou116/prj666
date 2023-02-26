@@ -1,4 +1,4 @@
-// 成绩统计页面
+
 <template>
   <div id="grade">
     <div ref="box" class="box"></div>
@@ -13,9 +13,9 @@ export default {
   name: "grade",
   data() {
     return {
-      isNull: false, //原始数据
-      tableDataX: [], //x轴数据 保存次数
-      tableDataY: [], //y轴数据 保存分数
+      isNull: false, 
+      tableDataX: [], 
+      tableDataY: [], 
     }
   },
   mounted() {
@@ -31,12 +31,12 @@ export default {
        'Authorization' : 'Bearer ' + tokenStr
       }
       ///api/score/${studentId}
-      this.$axios(`http://localhost:8080/score/${studentId}`,{headers}).then(res => { //根据学生Id查询成绩
+      this.$axios(`http://localhost:8080/score/${studentId}`,{headers}).then(res => { 
         console.log(res)
         if(res.data.code == 200) {
           let rootData = res.data.data
           rootData.forEach((element,index) => {
-            this.tableDataX.push(`第${index + 1}次`)
+            this.tableDataX.push(`${index + 1}Times`)
             this.tableDataY.push(element.etScore)
           });
           let boxDom = this.$refs["box"];

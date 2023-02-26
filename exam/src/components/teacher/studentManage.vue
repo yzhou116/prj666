@@ -1,4 +1,4 @@
-// 学生管理页面
+
 <template>
   <div class="all">
     <el-table :data="pagination.records" border>
@@ -26,7 +26,7 @@
       :total="pagination.total"
       class="page">
     </el-pagination>
-    <!-- 编辑对话框-->
+
     <el-dialog
       title="Edit Exam"
       :visible.sync="dialogVisible"
@@ -70,13 +70,13 @@ export default {
   data() {
     return {
       pagination: {
-        //分页后的考试信息
-        current: 1, //当前页
-        total: null, //记录条数
-        size: 6, //每页条数
+
+        current: 1,
+        total: null, 
+        size: 6, 
       },
-      dialogVisible: false, //对话框
-      form: {}, //保存点击以后当前试卷的信息
+      dialogVisible: false, 
+      form: {}, 
     };
   },
   created() {
@@ -84,7 +84,7 @@ export default {
   },
   methods: {
     getStudentInfo() {
-      //分页查询所有试卷信息
+     
       ///api/students/${this.pagination.current}/${this.pagination.size}
       let tokenStr = this.$session.get('jwt')
       const headers = 
@@ -96,35 +96,35 @@ export default {
         this.pagination = res.data.data;
       }).catch(error => {});
     },
-    //改变当前记录条数
+   
     handleSizeChange(val) {
       this.pagination.size = val;
       this.getStudentInfo();
     },
-    //改变当前页码，重新发送请求
+  
     handleCurrentChange(val) {
       this.pagination.current = val;
       this.getStudentInfo();
     },
-    checkGrade(studentId) { //修改学生信息
+    checkGrade(studentId) { 
       this.dialogVisible = true
       ///api/student/${studentId}
       this.$axios(`http://localhost:8080/students/${studentId}`).then(res => {
         this.form = res.data.data
       })
     },
-    deleteById(studentId) { //删除当前学生
+    deleteById(studentId) { 
       let tokenStr = this.$session.get('jwt')
       const headers = 
       {
       
        'Authorization' : 'Bearer ' + tokenStr
       }
-      this.$confirm("确定删除当前学生吗？删除后无法恢复","Warning",{
-        confirmButtonText: '确定删除',
-        cancelButtonText: '算了,留着吧',
+      this.$confirm("Do you want to delete it, you can not get it back","Warning",{
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No',
         type: 'danger'
-      }).then(()=> { //确认删除
+      }).then(()=> { 
         this.$axios({
          /*  url: `/api/student/${studentId}`, */
          url: `http://localhost:8080/student/${studentId}`,
@@ -137,7 +137,7 @@ export default {
 
       })
     },
-    submit() { //提交更改
+    submit() { 
       let tokenStr = this.$session.get('jwt')
       const headers = {
         headers:  {
@@ -166,8 +166,8 @@ export default {
         this.getStudentInfo()
       })
     },
-    handleClose(done) { //关闭提醒
-      this.$confirm('确认关闭？')
+    handleClose(done) { 
+      this.$confirm('Do you want to close?')
         .then(_ => {
           done();
         }).catch(_ => {});

@@ -1,4 +1,4 @@
-//查询所有题库
+
 <template>
   <div class="exam">
     <el-table :data="pagination.records" border :row-class-name="tableRowClassName">
@@ -27,10 +27,10 @@ export default {
   data() {
     return {
       pagination: {
-        //分页后的考试信息
-        current: 1, //当前页
-        total: null, //记录条数
-        size: 6 //每页条数
+   
+        current: 1, 
+        total: null, 
+        size: 6 
       }
     };
   },
@@ -39,7 +39,7 @@ export default {
   },
   methods: {
     getAnswerInfo() {
-      //分页查询所有试卷信息
+   
       let tokenStr = this.$session.get('jwt')
       const headers = 
       {
@@ -57,12 +57,12 @@ export default {
         })
         .catch(error => {});
     },
-    //改变当前记录条数
+
     handleSizeChange(val) {
       this.pagination.size = val;
       this.getAnswerInfo();
     },
-    //改变当前页码，重新发送请求
+
     handleCurrentChange(val) {
       this.pagination.current = val;
       this.getAnswerInfo();

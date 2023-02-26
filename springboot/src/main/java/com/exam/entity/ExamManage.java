@@ -39,4 +39,6 @@ public class ExamManage {
     private boolean ispublic;
 
     private boolean issurvey;
+
+    private boolean ispractice;
 }

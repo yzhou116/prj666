@@ -1,9 +1,9 @@
 <template>
   <div class="score">
     <div class="title">
-      <p class="name">Computer Network</p>
-      <p class="description">(Total Mark: 100,Time limit: 100Mins)</p>
-      <p class="description">Student: Big Fish</p>
+      <p class="name">{{title}}</p>
+      <p class="description">(Total Mark: {{totalmark}},Time limit: {{toTime}} Mins)</p>
+      <p class="description">{{userName}}</p>
     </div>
     <div class="total">
       <div class="look">
@@ -11,16 +11,16 @@
       </div>
       <div class="show">
         <div class="img1" :class="{'img1Transform': imgShow}">
-          <img :src="imgSrc.fail1" alt="Cry" v-if="score < 60">
-          <img :src="imgSrc.pass1" alt="Pass" v-if="score >= 60">
+          <img :src="imgSrc.fail1" alt="Cry" v-if="score < 0.6">
+          <img :src="imgSrc.pass1" alt="Pass" v-if="score >= 0.6">
         </div>
         <div class="number" :class="{'border': isTransition}">
-          <span>{{score}}</span>
-          <span>Score</span>
+          <span>{{finalRes}}</span>
+         <!--  <span>Score</span> -->
         </div>
         <div class="img2" :class="{'img2Transform': imgShow}">
-          <img :src="imgSrc.fail2" alt="Cry" v-if="score < 60">
-          <img :src="imgSrc.pass2" alt="Pass" v-if="score >= 60">
+          <img :src="imgSrc.fail2" alt="Cry" v-if="score < 0.6">
+          <img :src="imgSrc.pass2" alt="Pass" v-if="score >= 0.6">
         </div>
       </div>
       <ul class="time">
@@ -35,17 +35,24 @@
 export default {
   data() {
     return {
-      isTransition: false, //是否渲染完成
-      score: 0, //总分
-      imgShow: false, //不及格图片显示
+      isTransition: false,
+      score: 0,
+      imgShow: false, 
       imgSrc: {
-        fail1: require("@/assets/img/cry1.gif"),
-        fail2: require('@/assets/img/cry2.jpg'),
-        pass1: require('@/assets/img/good1.jpg'),
-        pass2: require('@/assets/img/good2.gif')
+        fail1: require("@/assets/img/fail.gif"),
+        fail2: require('@/assets/img/fail2.gif'),
+        pass1: require('@/assets/img/execellent2.gif'),
+        pass2: require('@/assets/img/excellent.gif')
       },
-      startTime: null, //考试开始时间
-      endTime: null, //考试结束时间
+      startTime: null, 
+      endTime: null, 
+      title : "",
+      totalmark : "",
+      TimeLimited : "",
+      toTime : "",
+      userName : "",
+      finalRes : ""
+
     }
   },
   created() {
@@ -53,19 +60,39 @@ export default {
     this.getScore()
   },
   methods: {
-    transiton() {  //一秒后过渡
+    transiton() {  
       setTimeout(() => {
         this.isTransition = true
         this.imgShow = true
       },1000)
     },
     getScore() {
+      debugger
       let score = this.$route.query.score
       let startTime = this.$route.query.startTime
       let endTime = this.$route.query.endTime
-      this.score = score
+      this.score = score / this.$route.query.mdata.totalScore
+      if(this.score <= 1 && this.score >= 0.9){
+        this.finalRes = 'A+'
+      }else if(this.score < 0.9 && this.score >= 0.8){
+        this.finalRes = 'A'
+      }else if(this.score < 0.8 && this.score >= 0.75){
+        this.finalRes = 'B+'
+      }else if(this.score < 0.75 && this.score >= 0.7){
+        this.finalRes = 'B'
+      }else if(this.score < 0.7 && this.score >= 0.65){
+        this.finalRes = 'C+'
+      }else if(this.score < 0.65 && this.score >= 0.6){
+        this.finalRes = 'C'
+      }else{
+        this.finalRes = 'F'
+      }
       this.startTime = startTime
       this.endTime = endTime
+      this.totalmark = this.$route.query.mdata.totalScore,
+      this.title = this.$route.query.mdata.source,
+      this.toTime = this.$route.query.mdata.totalTime
+      this.userName = this.$route.query.mdata.student
     }
   }
 }

@@ -1,4 +1,4 @@
-<!--管理中心-->
+
 <template>
   <div id='manager'>
     <el-form :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2" label-width="100px" class="demo-ruleForm">
@@ -66,7 +66,7 @@
       
        'Authorization' : 'Bearer ' + tokenStr
       }
-            this.$axios({ //修改密码
+            this.$axios({ 
             /*   url: '/api/studentPWD', */
             url: `http://localhost:8080/studentPWD`,
               method: 'put',
@@ -76,9 +76,9 @@
               },
               headers
             }).then(res => {
-              if(res.data != null ) { //修改成功提示
+              if(res.data != null ) { 
                 this.$message({
-                  message: '密码修改成功...',
+                  message: 'Update password success...',
                   type: 'success'
                 })
               }

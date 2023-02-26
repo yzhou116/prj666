@@ -1,4 +1,4 @@
-//查询所有考试
+
 <template>
   <div class="exam">
     <el-table :data="pagination.records" border>
@@ -28,7 +28,7 @@
       layout="total, sizes, prev, pager, next, jumper"
       :total="pagination.total" class="page">
     </el-pagination>
-    <!-- 编辑对话框-->
+
     <el-dialog
       title="Edit exam information"
       :visible.sync="dialogVisible"
@@ -82,11 +82,11 @@
 export default {
   data() {
     return {
-      form: {}, //保存点击以后当前试卷的信息
-      pagination: { //分页后的考试信息
-        current: 1, //当前页
-        total: null, //记录条数
-        size: 4 //每页条数
+      form: {}, 
+      pagination: { 
+        current: 1, 
+        total: null, 
+        size: 4 
       },
       dialogVisible: false
     }
@@ -95,7 +95,7 @@ export default {
     this.getExamInfo()
   },
   methods: {
-    edit(examCode) { //编辑试卷
+    edit(examCode) { 
       this.dialogVisible = true
       let tokenStr = this.$session.get('jwt')
       const headers = 
@@ -104,13 +104,13 @@ export default {
        'Authorization' : 'Bearer ' + tokenStr
       }
       // /api/exam/${examCode}
-    /*   this.$axios(`http://localhost:8080/exam/${examCode}`,{headers}).then(res => { //根据试卷id请求后台
+    /*   this.$axios(`http://localhost:8080/exam/${examCode}`,{headers}).then(res => { 
         if(res.data.code == 200) {
           this.form = res.data.data
         }
       }) */
       var username = this.$cookies.get("cname")
-      this.$axios(`http://localhost:8080/exam/${examCode}/${username}`,{headers}).then(res => {  //通过examCode请求试卷详细信息
+      this.$axios(`http://localhost:8080/exam/${examCode}/${username}`,{headers}).then(res => {  
         if(res.data.code == 200) {
           this.form = res.data.data
         }
@@ -119,13 +119,13 @@ export default {
       })
 
     },
-    handleClose(done) { //关闭提醒
+    handleClose(done) { 
       this.$confirm('Close it? ')
         .then(_ => {
           done();
         }).catch(_ => {});
     },
-    submit() { //提交修改后的试卷信息
+    submit() { 
       this.dialogVisible = false
       let tokenStr = this.$session.get('jwt')
       const headers = 
@@ -143,7 +143,7 @@ export default {
         headers
       }).then(res => {
         if(res.data.code == 200) {
-          this.$message({ //成功修改提示
+          this.$message({ 
             message: 'Updated',
             type: 'success'
           })
@@ -162,7 +162,7 @@ export default {
         confirmButtonText: 'Yes',
         cancelButtonText: 'No Keep it',
         type: 'danger'
-      }).then(()=> { //确认删除
+      }).then(()=> { 
         this.$axios({
         /*   url: `/api/exam/${examCode}`, */
         url: `http://localhost:8080/exam/${examCode}`,
@@ -175,7 +175,7 @@ export default {
 
       })
     },
-    getExamInfo() { //分页查询所有试卷信息
+    getExamInfo() { 
       ///api/exams/${this.pagination.current}/${this.pagination.size}
       let tokenStr = this.$session.get('jwt')
       const headers = 
@@ -196,12 +196,12 @@ export default {
       }).catch(error => {
       }) */
     },
-    //改变当前记录条数
+
     handleSizeChange(val) {
       this.pagination.size = val
       this.getExamInfo()
     },
-    //改变当前页码，重新发送请求
+ 
     handleCurrentChange(val) {
       this.pagination.current = val
       this.getExamInfo()

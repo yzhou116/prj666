@@ -1,11 +1,11 @@
-// 我的试卷页面
+
 <template>
   <div id="myExam">
     <div class="title">My Exam</div>
     <div class="wrapper">
       <ul class="top">
         <li class="order">Exam List</li>
-        <li class="search-li"><div class="icon"><input type="text" placeholder="试卷名称" class="search" v-model="key"><i class="el-icon-search"></i></div></li>
+        <li class="search-li"><div class="icon"><input type="text" placeholder="Exam Name" class="search" v-model="key"><i class="el-icon-search"></i></div></li>
         <li><el-button type="primary" @click="search()">Search Exam</el-button></li>
       </ul>
       <ul class="paper" v-loading="loading">
@@ -35,10 +35,10 @@
 </template>
 
 <script>
-import  Vue from 'vue'
+import myFooter from "@/components/student/myFooter"
 import VueResource from 'vue-resource'
 import Vuex from 'vuex'
-
+import  Vue from 'vue'
 Vue.use(VueResource);
 Vue.use(Vuex);
 export default {
@@ -46,12 +46,12 @@ export default {
   data() {
     return {
       loading: false,
-      key: null, //搜索关键字
-      allExam: null, //所有考试信息
-      pagination: { //分页后的考试信息
-        current: 1, //当前页
-        total: null, //记录条数
-        size: 6 //每页条数
+      key: null, 
+      allExam: null, 
+      pagination: { 
+        current: 1, 
+        total: null, 
+        size: 6 
       }
     }
   },
@@ -63,7 +63,7 @@ export default {
     
   // },
   methods: {
-    //获取当前所有考试信息
+  
  async   getExamInfo() {
    
     console.log("exam token " + this.$session.get('jwt'))
@@ -135,17 +135,17 @@ export default {
     //  debugger;
       var i = 0;
     },
-    //改变当前记录条数
+
     handleSizeChange(val) {
       this.pagination.size = val
       this.getExamInfo()
     },
-    //改变当前页码，重新发送请求
+ 
     handleCurrentChange(val) {
       this.pagination.current = val
       this.getExamInfo()
     },
-    //搜索试卷
+
     search() {
       ///api/exams
       this.$axios('http://localhost:8080/exams',
@@ -159,7 +159,7 @@ export default {
         }
       })
     },
-    //跳转到试卷详情页
+
     toExamMsg(examCode) {
       this.$router.push({path: '/examPublic', query: {examCode: examCode, isSub : false}})
       console.log(examCode)

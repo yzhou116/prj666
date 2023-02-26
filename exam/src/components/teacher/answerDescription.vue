@@ -1,4 +1,4 @@
-<!-- 题库管理功能介绍 -->
+
 <template>
   <section class="description">
     <p class="title">Manage Repo introduction</p>

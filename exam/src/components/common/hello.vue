@@ -18,7 +18,7 @@
 export default {
   data() {
     return {
-      user: { //用户信息
+      user: { 
         userName: null,
         userId: null
       } 
@@ -28,7 +28,7 @@ export default {
     this.getUserInfo()
   },
   methods: {
-    getUserInfo() { //获取用户信息
+    getUserInfo() { 
       let userName = this.$cookies.get("cname")
       let userId = this.$cookies.get("cid")
       this.user.userName = userName

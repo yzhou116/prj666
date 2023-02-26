@@ -59,9 +59,9 @@ public class JwtAuthenticationController {
             password = bCryptPasswordEncoder.encode(password);
             int adminRes = loginService.updateadminLogin(username,password);
             if (adminRes == 1) {
-                return ApiResultHandler.buildApiResult(200, "请求成功", adminRes);
+                return ApiResultHandler.buildApiResult(200, "Request Success", adminRes);
             }else{
-                return ApiResultHandler.buildApiResult(400, "请求失败", null);
+                return ApiResultHandler.buildApiResult(400, "Request Fail", null);
             }
         }else if(login.getType().equals("Publisher")){
          //   Teacher teacherRes = loginService.teacherLogin(username,password);
@@ -69,9 +69,9 @@ public class JwtAuthenticationController {
             password = bCryptPasswordEncoder.encode(password);
             int teacherRes = loginService.updateTeacherLogin(username,password);
             if (teacherRes == 1) {
-                return ApiResultHandler.buildApiResult(200, "请求成功", teacherRes);
+                return ApiResultHandler.buildApiResult(200, "Request Success", teacherRes);
             } else {
-                return ApiResultHandler.buildApiResult(400, "请求失败", null);
+                return ApiResultHandler.buildApiResult(400, "Request Fail", null);
             }
         }else if(login.getType().equals("Subscriber")){
             BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
@@ -79,12 +79,12 @@ public class JwtAuthenticationController {
             int studentRes = loginService.updatestudentLogin(username,password);
          //   int studentRes = 1;
             if (studentRes == 1) {
-                return ApiResultHandler.buildApiResult(200, "请求成功", studentRes);
+                return ApiResultHandler.buildApiResult(200, "Request Success", studentRes);
             }else{
-                return ApiResultHandler.buildApiResult(400, "请求失败", null);
+                return ApiResultHandler.buildApiResult(400, "Request Fail", null);
             }
         }
-        return ApiResultHandler.buildApiResult(400, "请求失败", null);
+        return ApiResultHandler.buildApiResult(400, "Request Fail", null);
 
     }
     @RequestMapping(value = "/authenticatet", method = RequestMethod.POST)

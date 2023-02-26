@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
-//判断题
+
 
 @Mapper
 public interface JudgeQuestionMapper {
@@ -20,10 +20,7 @@ public interface JudgeQuestionMapper {
     @Select("select * from judge_question")
     IPage<JudgeQuestion> findAll(Page page);
 
-    /**
-     * 查询最后一条记录的questionId
-     * @return JudgeQuestion
-     */
+
     @Select("select questionId from judge_question order by questionId desc limit 1")
     JudgeQuestion findOnlyQuestionId();
 

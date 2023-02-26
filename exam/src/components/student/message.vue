@@ -1,60 +1,21 @@
-// 给我留言页面
+
 <template>
-  <div id="message">
-    <div class="title">Leave me a message</div>
-    <div class="wrapper">
-      <div class="title1">
-        <el-input
-          placeholder="留言标题"
-          v-model="title"
-          clearable>
-        </el-input>
-      </div>
-      <div class="content">
-        <el-input
-          type="textarea"
-          :rows="3"
-          placeholder="留言内容"
-          v-model="content"
-          clearable>
-        </el-input>
-      </div>
-      <div class="btn">
-        <el-button type="primary" @click="submit()">Submit Message</el-button>
-      </div>
-      <div class="all">
-        <ul class="msglist">
-          <li class="list" 
-          @mouseenter="enter(index)" 
-          @mouseleave="leave(index)"
-          v-for="(data,index) in msg" :key="index"
-          >
-            <p class="title"> <i class="iconfont icon-untitled33"></i>{{data.title}}</p>
-            <p class="content">{{data.content}}</p>
-            <p class="date"><i class="iconfont icon-date"></i>{{data.time}}</p>
-            <div v-for="(replayData,index2) in data.replays" :key="index2">
-              <p class="comment"><i class="iconfont icon-huifuxiaoxi"></i>{{replayData.replay}}</p>
-            </div>
-            <span class="replay" @click="replay(data.id)" v-if="flag && index == current">Comment</span>
-          </li>
-        </ul>
-      </div>
-      <div class="pagination">
-        <el-pagination
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-          :current-page="pagination.current"
-          :page-sizes="[4,6,8,10]"
-          :page-size="pagination.size"
-          layout="total, sizes, prev, pager, next, jumper"
-          :total="pagination.total">
-        </el-pagination>
-      </div>
+
+  <div class="chatbot-container">
+    <div v-for="(message, index) in messages" :key="index">
+      <div v-if="message.isBot" class="bot-message">{{ message.text }}</div>
+      <div v-else class="user-message">{{ message.text }}</div>
     </div>
+    <form @submit.prevent="handleSubmit">
+      <input type="text" v-model="currentMessage" placeholder="Type your message here" />
+      <button type="submit">Send</button>
+    </form>
   </div>
 </template>
 
 <script>
+/* import  Vue from 'vue'
+import VueSocketIO from 'vue-socket.io' */
 export default {
   // name: 'message'
   data() {
@@ -63,90 +24,190 @@ export default {
       current: 0,
       title: "",
       content: "",
-      pagination: { //分页后的留言列表
-        current: 1, //当前页
-        total: null, //记录条数
-        size: 4 //每页条数
+      pagination: { 
+        current: 1, 
+        total: null, 
+        size: 4 
       },
-      msg: []
+      openai: {
+        model: 'text-davinci-002',
+        prompt: 'What is seneca college',
+        max_tokens: 100,
+        temperature: 0.5,
+        top_p: 1,
+        frequency_penalty: 0,
+        presence_penalty: 0,
+
+      },
+      API_KEY: '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',
+      msg: [],
+      message: '',
+      isConnected: false,
+      socketMessage: '',
+      messages: [],
+      currentMessage: '',
     }
   },
   created() {
     this.getMsg()
+
+    /*   const mheaders = 
+        {
+        
+         'Authorization' : 'Bearer ' + this.API_KEY
+    }
+    this.$axios({
+          url: 'https://api.openai.com/v1/completions',
+          headers : mheaders,
+          method: 'post',
+          data: this.openai
+          
+        }).then(res=>{
+          //let resData = res.data.data
+          console.log(JSON.stringify(res))
+         console.log(res.data.choices[0].text)
+        }) */
+
+    /*  this.$socket.on('/topic/yigreetings', message => {
+       this.messages.push(message);
+     }); */
   },
-  // watch: {
-    
-  // },
+
+
+  /*   sockets: {
+     
+      connect: function () {
+        this.isConnected = true;
+              console.log('socket connected')
+          },
+  
+      disconnect() {
+        this.isConnected = false;
+      },
+      customEmit: function (data) {
+              console.log('this method was fired by the socket server. eg: io.emit("customEmit", )' + data)
+          },
+  
+      // Fired when the server sends something on the "messageChannel" channel.
+      messageChannel(data) {
+        this.socketMessage = data
+        console.log(this.socketMessage)
+      }
+    },
+   */
   methods: {
     getMsg() {
       let tokenStr = this.$session.get('jwt')
-      const headers = 
+      const headers =
       {
-      
-       'Authorization' : 'Bearer ' + tokenStr
+
+        'Authorization': 'Bearer ' + tokenStr
       }
       ///api/messages/${this.pagination.current}/${this.pagination.size}
-      this.$axios(`http://localhost:8080/messages/${this.pagination.current}/${this.pagination.size}`, {headers}).then(res => {
+      this.$axios(`http://localhost:8080/messages/${this.pagination.current}/${this.pagination.size}`, { headers }).then(res => {
         let status = res.data.code
-        if(status == 200) {
+        if (status == 200) {
           this.msg = res.data.data.records
           this.pagination = res.data.data
         }
       })
     },
-    //改变当前记录条数
+    handleSubmit() {
+      this.messages.push({ text: this.currentMessage, isBot: false });
+  
+      this.openai.prompt =  this.currentMessage
+      const mheaders =
+      {
+
+        'Authorization': 'Bearer ' + this.API_KEY
+      }
+      this.$axios({
+        url: 'https://api.openai.com/v1/completions',
+        headers: mheaders,
+        method: 'post',
+        data: this.openai
+
+      }).then(res => {
+  
+        console.log(JSON.stringify(res))
+        console.log(res.data.choices[0].text)
+        this.currentMessage = res.data.choices[0].text
+        this.messages.push({ text: this.currentMessage, isBot: true });
+        this.currentMessage = '';
+      this.openai.prompt = ''
+      })
+    
+    },
+    /*  connect() {
+          debugger
+          var socket =   new VueSocketIO({
+      debug: true,
+      connection: 'http://localhost:8080/gs-guide-websocket'
+    })
+       //new SockJS('http://localhost:8080/gs-guide-websocket');
+        this.stompClient = Stomp.over(socket);
+        this.stompClient.connect({}, function (frame) {
+            setConnected(true);
+            console.log('Connected: ' + frame);
+            stompClient.subscribe('/topic/greetings', function (greeting) {
+                showGreeting(JSON.parse(greeting.body).content);
+            });
+             stompClient.subscribe('/topic/yigreetings', function (greeting) {
+                        showGreeting(JSON.parse(greeting.body).content);
+                 });
+        });
+    }, */
+
+
+    /* sendMessage() {
+      debugger;
+          this.$socket.emit('johnhello', this.message);
+          this.message = '';
+        }, */
+
     handleSizeChange(val) {
       this.pagination.size = val
       this.getMsg()
     },
-    //改变当前页码，重新发送请求
+  
     handleCurrentChange(val) {
       this.pagination.current = val
       this.getMsg()
     },
-    // formatTime(date) { //日期格式化
-    //   let year = date.getFullYear()
-    //   let month= date.getMonth()+ 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
-    //   let day=date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
-    //   let hours=date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
-    //   let minutes=date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
-    //   let seconds=date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
-    //   // 拼接
-    //   return year+"-"+month+"-"+day+" "+hours+":"+minutes+":"+seconds;
-    // },
+
     submit() {
       let date = new Date()
-      if(this.title.length == 0 || this.content.length == 0) { //非空判断
+      if (this.title.length == 0 || this.content.length == 0) { 
         this.$message({
           type: 'error',
           message: 'Comment content or title can not be empty',
         })
-       } else {
-      this.$axios({
-      /*   url: "/api/message", */
-      url: `http://localhost:8080/message`,
-        method: "post",
-        data: {
-          title: this.title,
-          content: this.content,
-          time: date
-        }
-      }).then(res => {
-        let code = res.data.code
-        if(code == 200) {
-          this.$message({
-            type: "success",
-            message: "留言成功"
-          })
-        }
-        this.getMsg()
-      })
-    }
+      } else {
+        this.$axios({
+          /*   url: "/api/message", */
+          url: `http://localhost:8080/message`,
+          method: "post",
+          data: {
+            title: this.title,
+            content: this.content,
+            time: date
+          }
+        }).then(res => {
+          let code = res.data.code
+          if (code == 200) {
+            this.$message({
+              type: "success",
+              message: "留言成功"
+            })
+          }
+          this.getMsg()
+        })
+      }
       this.title = ""
       this.content = ""
       this.getMsg()
     },
-    replay(messageId) { //回复留言功能
+    replay(messageId) { 
       this.$prompt('Reply Comment', 'hint', {
         confirmButtonText: 'Confirm',
         cancelButtonText: 'Cancel',
@@ -156,8 +217,8 @@ export default {
         let date = new Date()
         console.log(messageId)
         this.$axios({
-        /*   url: '/api/replay', */
-        url: `http://localhost:8080/replay`,
+          /*   url: '/api/replay', */
+          url: `http://localhost:8080/replay`,
           method: 'post',
           data: {
             replay: value,
@@ -175,7 +236,7 @@ export default {
         this.$message({
           type: 'info',
           message: 'Cancel input'
-        });       
+        });
       });
     },
     enter(index) {
@@ -186,7 +247,11 @@ export default {
       this.flag = false;
       this.current = index;
     }
-  }
+  },
+  /*  mixins: [VueSocketIO({
+     debug: true,
+     connection: 'http://localhost:8080/gs-guide-websocket'
+   })] */
 }
 </script>
 
@@ -205,9 +270,9 @@ export default {
 .content {
   padding: 20px 0px;
 }
-#message  {
+#message {
   .btn {
-   padding-bottom: 20px;
+    padding-bottom: 20px;
   }
   .all {
     .date {
@@ -217,11 +282,11 @@ export default {
     }
     .list {
       background-color: #eee;
-      padding:10px;
+      padding: 10px;
       border-radius: 4px;
       margin: 10px 0px;
       position: relative;
-      transition: all .3s ease;
+      transition: all 0.3s ease;
       .title {
         color: #5f5f5f;
         margin: 0px;
@@ -246,10 +311,10 @@ export default {
         bottom: 15px;
         color: tomato;
         cursor: pointer;
-        transition: all .3s ease;
+        transition: all 0.3s ease;
       }
       .comment {
-        margin:-7px 0px; 
+        margin: -7px 0px;
         padding-bottom: 12px;
         font-size: 13px;
         color: #28b2b4;
@@ -263,6 +328,48 @@ export default {
 #message .wrapper {
   background-color: #fff;
   padding: 20px;
+}
+.chatbot-container {
+  display: flex;
+  flex-direction: column;
+  height: 400px;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
 
+.bot-message {
+  background-color: #eee;
+  padding: 10px;
+  margin: 5px;
+  border-radius: 5px;
+  align-self: flex-start;
+}
+
+.user-message {
+  background-color: #0084ff;
+  color: #fff;
+  padding: 10px;
+  margin: 5px;
+  border-radius: 5px;
+  align-self: flex-end;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+button {
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 5px;
+  border: none;
+  background-color: #0084ff;
+  color: #fff;
+  font-size: 16px;
 }
 </style>

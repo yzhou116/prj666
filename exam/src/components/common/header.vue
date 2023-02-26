@@ -1,4 +1,4 @@
-<!-- 顶部信息栏 -->
+
 <template>
   <header id="topbar">
     <el-row>
@@ -32,7 +32,7 @@ export default {
   data() {
     return {
       login_flag: false,
-      user: { //用户信息
+      user: { 
         userName: null,
         userId: null
       } 
@@ -43,13 +43,13 @@ export default {
   },
   computed: mapState(["flag","menu"]),
   methods: {
-    //显示、隐藏退出按钮
+  
     showSetting() {
       this.login_flag = !this.login_flag
     },
-    //左侧栏放大缩小
+   
     ...mapMutations(["toggle"]),
-    getUserInfo() { //获取用户信息
+    getUserInfo() { 
       let userName = this.$cookies.get("cname")
       let userId = this.$cookies.get("cid")
       this.user.userName = userName
@@ -60,8 +60,8 @@ export default {
     },
     exit() {
       let role = this.$cookies.get("role")
-      this.$router.push({path:"/"}) //跳转到登录页面
-      this.$cookies.remove("cname") //清除cookie
+      this.$router.push({path:"/"}) 
+      this.$cookies.remove("cname") 
       this.$cookies.remove("cid")
       this.$cookies.remove("role")
       if(role == 0) {

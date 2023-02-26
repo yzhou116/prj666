@@ -48,37 +48,37 @@ public class ItemController {
         // 选择题数据库获取
         List<Integer>  changeNumbers = multiQuestionService.findBySubject(item.getSubject(), changeNumber);
         if(changeNumbers==null){
-            return ApiResultHandler.buildApiResult(400,"选择题数据库获取失败",null);
+            return ApiResultHandler.buildApiResult(400,"Muliti Choice Saves Fail",null);
         }
         for (Integer number : changeNumbers) {
             PaperManage paperManage = new PaperManage(paperId,1,number);
             int index = paperService.add(paperManage);
             if(index==0)
-                return ApiResultHandler.buildApiResult(400,"选择题组卷保存失败",null);
+                return ApiResultHandler.buildApiResult(400,"Muliti Choice Saves Fail",null);
         }
 
         // 填空题
         List<Integer> fills = fillQuestionService.findBySubject(item.getSubject(), fillNumber);
         if(fills==null)
-            return ApiResultHandler.buildApiResult(400,"填空题数据库获取失败",null);
+            return ApiResultHandler.buildApiResult(400,"Fill blank Saves Fail",null);
         for (Integer fillNum : fills) {
             PaperManage paperManage = new PaperManage(paperId,2,fillNum);
             int index = paperService.add(paperManage);
             if(index==0)
-                return ApiResultHandler.buildApiResult(400,"填空题题组卷保存失败",null);
+                return ApiResultHandler.buildApiResult(400,"Fill blank Saves Fail",null);
         }
         // 判断题
         List<Integer> judges = judgeQuestionService.findBySubject(item.getSubject(), judgeNumber);
         if(fills==null)
-            return ApiResultHandler.buildApiResult(400,"判断题数据库获取失败",null);
+            return ApiResultHandler.buildApiResult(400,"True and false Saves Fail",null);
         for (Integer judge : judges) {
             PaperManage paperManage = new PaperManage(paperId,3,judge);
             int index = paperService.add(paperManage);
             if(index==0)
-                return ApiResultHandler.buildApiResult(400,"判断题题组卷保存失败",null);
+                return ApiResultHandler.buildApiResult(400,"True and false Saves Fail",null);
         }
 
 
-          return ApiResultHandler.buildApiResult(200,"试卷组卷成功",null);
+          return ApiResultHandler.buildApiResult(200,"Request Success",null);
     }
 }

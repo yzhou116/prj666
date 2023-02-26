@@ -25,7 +25,7 @@ public class TeacherController {
         Page<Teacher> teacherPage = new Page<>(page,size);
         IPage<Teacher> teacherIPage = teacherService.findAll(teacherPage);
 
-        return ApiResultHandler.buildApiResult(200,"查询所有教师",teacherIPage);
+        return ApiResultHandler.buildApiResult(200,"Query Teacher",teacherIPage);
     }
 
     @GetMapping("/teacher/{teacherId}")

@@ -12,6 +12,7 @@ import store from '@/vuex/store'
 import VueSession from 'vue-session'
 //import  createAuth0  from '../../@auth0/auth0-vue';
 import {createAuth0}   from '../node_modules/@auth0/auth0-vue';
+import VueSocketIO from 'vue-socket.io'
 //import { createApp } from 'vue';
 
 /* const app = Vue.createApp(App);
@@ -26,6 +27,16 @@ app.mount('#app'); */
 Vue.use(ElementUI)
 Vue.use(VueCookies)
 Vue.use(VueSession)
+/* Vue.use(new VueSocketIO({
+  debug: true,
+  connection: 'http://localhost:8080',
+  vuex: {
+      store,
+      actionPrefix: 'SOCKET_',
+      mutationPrefix: 'SOCKET_'
+  },
+  options: { path: "/gs-guide-websocket/" } //Optional options
+})) */
 Vue.config.productionTip = false
 Vue.prototype.bus = new Vue()
 Vue.prototype.$echarts = echarts

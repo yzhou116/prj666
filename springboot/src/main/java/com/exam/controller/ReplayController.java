@@ -20,15 +20,15 @@ public class ReplayController {
     public ApiResult add(@RequestBody Replay replay) {
         int data = replayService.add(replay);
         if (data != 0) {
-            return ApiResultHandler.buildApiResult(200,"添加成功！",data);
+            return ApiResultHandler.buildApiResult(200,"Add Success",data);
         } else {
-            return ApiResultHandler.buildApiResult(400,"添加失败！",null);
+            return ApiResultHandler.buildApiResult(400,"Add Fail",null);
         }
     }
 
     @GetMapping("/replay/{messageId}")
     public ApiResult findAllById(@PathVariable("messageId") Integer messageId) {
         List<Replay> res = replayService.findAllById(messageId);
-        return ApiResultHandler.buildApiResult(200,"根据messageId查询",res);
+        return ApiResultHandler.buildApiResult(200,"Find by msg Id",res);
     }
 }

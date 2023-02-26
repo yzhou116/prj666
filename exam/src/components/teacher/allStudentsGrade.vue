@@ -1,21 +1,41 @@
-// 所有学生
+
 <template>
   <div class="all">
     <el-table :data="pagination.records" border>
-      <el-table-column fixed="left" prop="studentName" label="Name" width="180"></el-table-column>
-      <el-table-column prop="institute" label="College" width="200"></el-table-column>
-      <el-table-column prop="major" label="Course" width="200"></el-table-column>
-      <el-table-column prop="grade" label="Year" width="200"></el-table-column>
+ <!--     // width="180"width="200"width="200" -->
+      <el-table-column fixed="left" prop="source" label="Survey" ></el-table-column>
+      <el-table-column prop="description" label="Description" ></el-table-column>
+      <el-table-column prop="major" label="Major" ></el-table-column>
+      <!-- <el-table-column prop="grade" label="Year" width="200"></el-table-column>
       <el-table-column prop="clazz" label="Class" width="100"></el-table-column>
-      <el-table-column prop="sex" label="Sex" width="120"></el-table-column>
-      <el-table-column prop="tel" label="Contact" width="120"></el-table-column>
-      <el-table-column fixed="right" label="Check Score" width="150">
+      <el-table-column prop="sex" label="Sex" width="120"></el-table-column>fixed="right"
+      <el-table-column prop="tel" label="Contact" width="120"></el-table-column>-->
+      <el-table-column  label="Get Link" width="150"> 
         <template slot-scope="scope">
-          <el-button @click="checkGrade(scope.row.studentId)" type="primary" size="small">Check Score</el-button>
+          <el-button @click="checklink(scope.row.examCode)" type="primary" size="small">Get Link</el-button>
         </template>
       </el-table-column>
     </el-table>
-    <el-pagination
+
+    <el-dialog
+      title="Survry URL"
+      :visible.sync="dialogVisible"
+      width="30%"
+      :before-close="handleClose">
+      <section class="update">
+        <el-form ref="form" :model="form" label-width="80px">
+          <el-form-item label="URL">
+            <el-input disabled  v-model="mUrl"></el-input>
+          </el-form-item>
+        </el-form>
+      </section>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">Cancel</el-button>
+        <el-button type="primary" @click="mCopy()">Copy</el-button>
+      </span>
+    </el-dialog>
+    <a href="http://ec2-18-215-174-101.compute-1.amazonaws.com/johnEmail/">Go to Email Blast</a>
+<!--     <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
       :current-page="pagination.current"
@@ -24,7 +44,7 @@
       layout="total, sizes, prev, pager, next, jumper"
       :total="pagination.total"
       class="page"
-    ></el-pagination>
+    ></el-pagination> -->
   </div>
 </template>
 
@@ -33,11 +53,15 @@ export default {
   data() {
     return {
       pagination: {
-        //分页后的考试信息
-        current: 1, //当前页
-        total: null, //记录条数
-        size: 6 //每页条数
-      }
+ 
+        current: 1, 
+        total: null, 
+        size: 6 ,
+        records : [],
+        mUrl : ""
+      },
+      dialogVisible: false,
+      mExamCode : ""
     };
   },
   created() {
@@ -45,7 +69,7 @@ export default {
   },
   methods: {
     getAnswerInfo() {
-      //分页查询所有试卷信息
+ 
       ///api/students/${this.pagination.current}/${this.pagination.size}
       let tokenStr = this.$session.get('jwt')
       const headers = 
@@ -53,22 +77,49 @@ export default {
       
        'Authorization' : 'Bearer ' + tokenStr
       }
-      this.$axios(`http://localhost:8080/students/${this.pagination.current}/${this.pagination.size}`,{headers}).then(res => {
+    /*   this.$axios(`http://localhost:8080/students/${this.pagination.current}/${this.pagination.size}`,{headers}).then(res => {
         this.pagination = res.data.data;
+      }).catch(error => {}); */
+      var username = this.$cookies.get("cname")
+      this.$axios(`http://localhost:8080/teacherSuveryexamsAll/${username}`,{headers}).then(res => {
+        debugger
+        this.pagination.records = res.data.data;
+        console.log(JSON.stringify( this.pagination.records))
       }).catch(error => {});
     },
-    //改变当前记录条数
+
     handleSizeChange(val) {
       this.pagination.size = val;
       this.getAnswerInfo();
     },
-    //改变当前页码，重新发送请求
+
     handleCurrentChange(val) {
       this.pagination.current = val;
       this.getAnswerInfo();
     },
-    checkGrade(studentId) {
-      this.$router.push({ path: "/grade", query: { studentId: studentId } });
+    checklink(examCode) {
+    //  this.$router.push({ path: "/grade", query: { studentId: studentId } });
+    console.log("examCode ->" + examCode);
+    debugger
+    this.dialogVisible = true
+    this.mExamCode = examCode
+    this.mUrl = `http://localhost:8088/#/anonymousanswer?examCode=${this.mExamCode}&theuseremaill=yzhou111%40gmail.com`
+    var i = 0
+
+
+    },
+    mCopy(){
+      const el = document.createElement('textarea')
+     el.value = this.mUrl
+  el.setAttribute('readonly', '')
+  el.style.position = 'absolute'
+  el.style.left = '-9999px'
+  document.body.appendChild(el)
+  el.select()
+  document.execCommand('copy')
+  document.body.removeChild(el)
+      this.dialogVisible = false
+      this.mExamCode = ""
     }
   }
 };

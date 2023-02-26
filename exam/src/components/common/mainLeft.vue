@@ -1,4 +1,4 @@
-<!--左边下拉导航栏-->
+
 <template>
   <div id="left">
     <el-menu
@@ -48,7 +48,7 @@ export default {
     handleClose(key, keyPath) {
       // console.log(key, keyPath);
     },
-    //点击标题传递参数给navigator组件
+
     handleTitle(index) {
       this.bus.$emit('sendIndex',index)
     },

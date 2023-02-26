@@ -1,4 +1,4 @@
-// 我的考试页面
+
 <template>
   <div id="myExam">
     <div class="title">My Exam</div>
@@ -59,12 +59,12 @@ export default {
   data() {
     return {
       loading: false,
-      key: null, //搜索关键字
-      allExam: null, //所有考试信息
-      pagination: { //分页后的考试信息
-        current: 1, //当前页
-        total: null, //记录条数
-        size: 6 //每页条数
+      key: null, 
+      allExam: null, 
+      pagination: { 
+        current: 1, 
+        total: null, 
+        size: 6 
       }
     }
   },
@@ -76,7 +76,7 @@ export default {
     
   // },
   methods: {
-    //获取当前所有考试信息
+  
     
     getExamInfo() {
       let tokenStr = this.$session.get('jwt')
@@ -95,17 +95,17 @@ export default {
         console.log(error)
       })
     },
-    //改变当前记录条数
+
     handleSizeChange(val) {
       this.pagination.size = val
       this.getExamInfo()
     },
-    //改变当前页码，重新发送请求
+
     handleCurrentChange(val) {
       this.pagination.current = val
       this.getExamInfo()
     },
-    //搜索试卷
+
     search() {
       ///api/exams
       this.$axios('http://localhost:8080/exams').then(res => {
@@ -118,7 +118,7 @@ export default {
         }
       })
     },
-    //跳转到试卷详情页
+
     toExamMsg(examCode) {
       this.$router.push({path: '/examMsg', query: {examCode: examCode, isSub : true}})
       console.log(examCode)

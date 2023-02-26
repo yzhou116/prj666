@@ -1,4 +1,4 @@
-// 教师管理页面
+
 <template>
   <div class="all">
     <el-table :data="pagination.records" border>
@@ -26,7 +26,7 @@
       :total="pagination.total"
       class="page">
     </el-pagination>
-    <!-- 编辑对话框-->
+  
     <el-dialog
       title="Edit Question Info"
       :visible.sync="dialogVisible"
@@ -70,13 +70,13 @@ export default {
   data() {
     return {
       pagination: {
-        //分页后的考试信息
-        current: 1, //当前页
-        total: null, //记录条数
-        size: 6, //每页条数
+       
+        current: 1,
+        total: null, 
+        size: 6, 
       },
-      dialogVisible: false, //对话框
-      form: {}, //保存点击以后当前试卷的信息
+      dialogVisible: false, 
+      form: {}, 
     };
   },
   created() {
@@ -89,35 +89,34 @@ export default {
       {
       
        'Authorization' : 'Bearer ' + tokenStr
-      }//数据提交
-      //分页查询所有试卷信息
+      }
 ///api/teachers/${this.pagination.current}/${this.pagination.size}
       this.$axios(`http://localhost:8080/teachers/${this.pagination.current}/${this.pagination.size}`,{headers}).then(res => {
         this.pagination = res.data.data;
       }).catch(error => {});
     },
-    //改变当前记录条数
+   
     handleSizeChange(val) {
       this.pagination.size = val;
       this.getTeacherInfo();
     },
-    //改变当前页码，重新发送请求
+   
     handleCurrentChange(val) {
       this.pagination.current = val;
       this.getTeacherInfo();
     },
-    checkGrade(teacherId) { //修改教师信息
+    checkGrade(teacherId) { 
       this.dialogVisible = true
       this.$axios(`/api/teacher/${teacherId}`).then(res => {
         this.form = res.data.data
       })
     },
-    deleteById(teacherId) { //删除当前学生
+    deleteById(teacherId) { 
       this.$confirm("Do you really want to delete teacher? You can not do backup","Warning",{
         confirmButtonText: 'Delete it !',
         cancelButtonText: 'Leave it! ',
         type: 'danger'
-      }).then(()=> { //确认删除
+      }).then(()=> { 
         this.$axios({
           /* url: `/api/teacher/${teacherId}`, */
           url: `http://localhost:8080/teacher/${teacherId}`,
@@ -130,7 +129,7 @@ export default {
 
       })
     },
-    submit() { //提交更改
+    submit() { 
       this.dialogVisible = false
       this.$axios({
        /*  url: '/api/teacher', */
@@ -151,7 +150,7 @@ export default {
         this.getTeacherInfo()
       })
     },
-    handleClose(done) { //关闭提醒
+    handleClose(done) { 
       this.$confirm('Confirm Close')
         .then(_ => {
           done();

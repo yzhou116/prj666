@@ -1,4 +1,4 @@
-// 展示组件页面
+
 <template>
   <div id="index">
     <header1 class="topbar"></header1>

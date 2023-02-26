@@ -1,4 +1,4 @@
-<!-- 添加考试 -->
+
 <template>
   <section class="add">
     <el-form ref="form" :model="form" label-width="80px">
@@ -40,6 +40,9 @@
       <el-form-item label="Survey">
         <el-checkbox v-model="form.issurvey"></el-checkbox >
       </el-form-item>
+      <el-form-item label="Practice">
+        <el-checkbox v-model="form.ispractice"></el-checkbox >
+      </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit()">Create it</el-button>
         <el-button type="text" @click="cancel()">Cancel</el-button>
@@ -54,7 +57,7 @@ import { init } from 'events';
 export default {
   data() {
     return {
-      form: { //表单数据初始化
+      form: {
         source: null,
         description: null,
         institute: null,
@@ -67,20 +70,21 @@ export default {
         tips: null,
         paperId: null,
         ispublic : true,
-        issurvey : true
+        issurvey : true,
+        ispractice : true
       }
     };
     
   },
   methods: {
-    formatTime(date) { //日期格式化
+    formatTime(date) { 
       let year = date.getFullYear()
       let month= date.getMonth()+ 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
       let day=date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
       let hours=date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
       let minutes=date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
       let seconds=date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
-      // 拼接
+
       return year+"-"+month+"-"+day+" "+hours+":"+minutes+":"+seconds;
     },
     onSubmit() {
@@ -95,7 +99,7 @@ export default {
       var username = this.$cookies.get("cname")
 ///api/examManagePaperId
       this.$axios(`http://localhost:8080/examManagePaperId`,{headers}).then(res => {
-        this.form.paperId = res.data.data.paperId + 1 //实现paperId自增1
+        this.form.paperId = res.data.data.paperId + 1 
         this.$axios({
         /*   url: '/api/exam', */
           url: `http://localhost:8080/exam`,
@@ -118,7 +122,7 @@ export default {
         })
       })
     },
-    cancel() { //取消按钮
+    cancel() { 
       this.form = {}
     },
     

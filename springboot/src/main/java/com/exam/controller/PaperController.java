@@ -32,15 +32,15 @@ public class PaperController {
 
     @GetMapping("/papers")
     public ApiResult<PaperManage> findAll() {
-       ApiResult res =  ApiResultHandler.buildApiResult(200,"请求成功",paperService.findAll());
+       ApiResult res =  ApiResultHandler.buildApiResult(200,"Request Success",paperService.findAll());
        return  res;
     }
 
     @GetMapping("/paper/{paperId}")
     public Map<Integer, List<?>> findById(@PathVariable("paperId") Integer paperId) {
-        List<MultiQuestion> multiQuestionRes = multiQuestionService.findByIdAndType(paperId);   //选择题题库 1
-        List<FillQuestion> fillQuestionsRes = fillQuestionService.findByIdAndType(paperId);     //填空题题库 2
-        List<JudgeQuestion> judgeQuestionRes = judgeQuestionService.findByIdAndType(paperId);   //判断题题库 3
+        List<MultiQuestion> multiQuestionRes = multiQuestionService.findByIdAndType(paperId);
+        List<FillQuestion> fillQuestionsRes = fillQuestionService.findByIdAndType(paperId);
+        List<JudgeQuestion> judgeQuestionRes = judgeQuestionService.findByIdAndType(paperId);
         Map<Integer, List<?>> map = new HashMap<>();
         map.put(1,multiQuestionRes);
         map.put(2,fillQuestionsRes);
@@ -52,9 +52,9 @@ public class PaperController {
     public ApiResult add(@RequestBody PaperManage paperManage) {
         int res = paperService.add(paperManage);
         if (res != 0) {
-            return ApiResultHandler.buildApiResult(200,"添加成功",res);
+            return ApiResultHandler.buildApiResult(200,"Add success",res);
         }
-        return ApiResultHandler.buildApiResult(400,"添加失败",res);
+        return ApiResultHandler.buildApiResult(400,"Add Fail",res);
     }
 
     @GetMapping("/anonymousPaper/{paperId}")

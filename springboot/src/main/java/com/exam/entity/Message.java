@@ -9,14 +9,15 @@ import java.util.List;
 @Data
 public class Message {
     private Integer id;
-    private Integer temp_id;//解决id为null创建的一个临时id
+    private Integer temp_id;
 
     private String title;
 
     private String content;
 
-    @JsonFormat(pattern = "yyyy-MM-dd", timezone="GMT+8")
+  //  @JsonFormat(pattern = "yyyy-MM-dd", timezone="GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone="EST")
     private Date time;
 
-    List<Replay> replays;   //一对多关系，评论信息
+    List<Replay> replays;
 }

@@ -2,7 +2,7 @@ package com.exam.entity;
 
 import lombok.Data;
 
-//填空题实体类
+
 @Data
 public class FillQuestion {
     private Integer questionId;
@@ -19,7 +19,7 @@ public class FillQuestion {
 
     private String section;
 
-    private String analysis; //题目解析
+    private String analysis;
 
     private String teacher;
 }

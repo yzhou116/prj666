@@ -1,4 +1,4 @@
-<!-- 用户登录界面 -->
+
 <template>
   <div id="login">
     <div class="bg"></div>
@@ -31,10 +31,10 @@
                 <el-button type="primary" class="row-login" @click="login()">Login</el-button>
               </div>
               <!-- <div class="options">
-                <p class="find"><a href="javascript:;">找回密码</a></p>
+                <p class="find"><a href="javascript:;">Find password</a></p>
                 <div class="register">
-                  <span>没有账号?</span>
-                  <span><a href="javascript:;">去注册</a></span>
+                  <span>No Account?</span>
+                  <span><a href="javascript:;">Go registere</a></span>
                 </div>
               </div> -->
             </el-form>
@@ -76,7 +76,7 @@ export default {
     }
   },
   methods: {
-    //用户登录请求后台处理
+  
     //Change every rul to http://localhost:8080/ without api, don't just delete it, need to deploy it after
     login() {
       console.log("Login -------");
@@ -110,42 +110,42 @@ export default {
               this.$cookies.set("cid", this.formLabelAlign.username)
               this.$router.push({path: '/student'})
               break
-            case "Admin":  //管理员
+            case "Admin": 
               this.$cookies.set("cname", this.formLabelAlign.username)
               this.$cookies.set("cid", this.formLabelAlign.username)
               this.$cookies.set("role", 0)
-              this.$router.push({path: '/index' }) //跳转到首页
+              this.$router.push({path: '/index' }) 
               break
-            case "Publisher": //教师
+            case "Publisher": 
               this.$cookies.set("cname", this.formLabelAlign.username)
               this.$cookies.set("cid", this.formLabelAlign.username)
               this.$cookies.set("role", 1)
-              this.$router.push({path: '/index' }) //跳转到教师用户
+              this.$router.push({path: '/index' }) 
               break
 
           }
 
        /*    switch(resData.role) {
-            case "0":  //管理员
+            case "0": 
               this.$cookies.set("cname", resData.adminName)
               this.$cookies.set("cid", resData.adminId)
               this.$cookies.set("role", 0)
               this.$router.push({path: '/index' }) //跳转到首页
               break
-            case "1": //教师
+            case "1":
               this.$cookies.set("cname", resData.teacherName)
               this.$cookies.set("cid", resData.teacherId)
               this.$cookies.set("role", 1)
               this.$router.push({path: '/index' }) //跳转到教师用户
               break
-            case "2": //学生
+            case "2": 
               this.$cookies.set("cname", resData.studentName)
               this.$cookies.set("cid", resData.studentId)
               this.$router.push({path: '/student'})
               break
           } */
         }
-        if(resData == null) { //错误提示
+        if(resData == null) {
           this.$message({
             showClose: true,
             type: 'error',
@@ -201,7 +201,7 @@ a:link {
   width: 100%;
   overflow-y: auto;
   height: 100%;
-  background: url('../../assets/img/loginbg.png')center top / cover no-repeat;
+  background: url('../../assets/img/logbg.jpg')center top / cover no-repeat;
   background-color: #b6bccdd1 !important;
 }
 #login .main-container {

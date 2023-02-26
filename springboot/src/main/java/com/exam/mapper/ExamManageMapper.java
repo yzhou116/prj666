@@ -28,14 +28,11 @@ public interface ExamManageMapper {
     int update(ExamManage exammanage);
 
     @Options(useGeneratedKeys = true,keyProperty = "examCode")
-    @Insert("insert into exam_manage(description,source,paperId,examDate,totalTime,grade,term,major,institute,totalScore,type,tips,teacher,student,ispublic, isSurvey )" +
-            " values(#{description},#{source},#{paperId},#{examDate},#{totalTime},#{grade},#{term},#{major},#{institute},#{totalScore},#{type},#{tips},#{teacher}, #{student}, #{ispublic}, #{issurvey})")
+    @Insert("insert into exam_manage(description,source,paperId,examDate,totalTime,grade,term,major,institute,totalScore,type,tips,teacher,student,ispublic, isSurvey, isPractice )" +
+            " values(#{description},#{source},#{paperId},#{examDate},#{totalTime},#{grade},#{term},#{major},#{institute},#{totalScore},#{type},#{tips},#{teacher}, #{student}, #{ispublic}, #{issurvey},#{ispractice})")
     int add(ExamManage exammanage);
 
-    /**
-     * 查询最后一条记录的paperId,返回给前端达到自增效果
-     * @return paperId
-     */
+
     @Select("select paperId from exam_manage order by paperId desc limit 1")
     ExamManage findOnlyPaperId();
 
@@ -49,6 +46,9 @@ public interface ExamManageMapper {
 
     @Select("select student from exam_manage where examCode = #{examCode}")
     String findStudentInExam(String examCode);
+
+    @Select("select * from exam_manage where teacher = #{teacherId} and isSurvey = 1")
+    List<ExamManage> findSurveyByTeacherId(String teacherId);
 
     @Select("select * from (select * from exam_manage where teacher != #{userCode} ) as myalias where ispublic = 1")
     List<ExamManage> findByUserNameAndIsPublic(String userCode);

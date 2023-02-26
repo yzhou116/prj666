@@ -1,4 +1,4 @@
-//显示学生成绩
+
 <template>
   <div class="table">
     <p class="title">My Score</p>
@@ -15,7 +15,7 @@
         </el-table-column>
         <el-table-column
           prop="subject"
-          label="Class Name"
+          label="Exam Name"
           width="300"
           filter-placement="bottom-end">
           <template slot-scope="scope">
@@ -23,9 +23,9 @@
           </template>
         </el-table-column>
         <el-table-column prop="etScore" label="Exam Score" width="200"></el-table-column>
-        <el-table-column label="Is Failed" width="100">
+        <el-table-column label="Result" width="100">
           <template slot-scope="scope">
-            <el-tag :type="scope.row.etScore>= 60 ? 'success' : 'danger'">{{scope.row.etScore >= 60 ? "Pass" : "Fail"}}</el-tag>
+            <el-tag :type="scope.row.etScore/scope.row.score >= 0.6 ? 'success' : 'danger'">{{scope.row.etScore/scope.row.score >= 0.6 ? "Pass" : "Fail"}}</el-tag>
           </template>
         </el-table-column>
       </el-table>
@@ -48,19 +48,19 @@
 export default {
   data() {
     return {
-      pagination: { //分页后的留言列表
-        current: 1, //当前页
-        total: null, //记录条数
-        size: 10 //每页条数
+      pagination: { 
+        current: 1, 
+        total: null, 
+        size: 10 
       },
-      loading: false, //加载标识符
-      score: [], //学生成绩
-      filter: null //过滤参数
+      loading: false, 
+      score: [], 
+      filter: null 
     }
   },
   created() {
     this.getScore()
-    this.loading = true //数据加载则遮罩表格
+    this.loading = true 
   },
   methods: {
     getScore() {
@@ -74,17 +74,18 @@ export default {
       }
       this.$axios(`http://localhost:8080/score/${this.pagination.current}/${this.pagination.size}/${studentId}`, {headers}).then(res => {
         if(res.data.code == 200) {
-          this.loading = false //数据加载完成去掉遮罩
+          this.loading = false 
+          debugger
           this.score = res.data.data.records
           this.pagination = {...res.data.data}
-          let mapVal = this.score.map((element,index) => { //通过map得到 filter:[{text,value}]形式的数组对象
+          let mapVal = this.score.map((element,index) => { 
             let newVal = {}
             newVal.text = element.answerDate
             newVal.value = element.answerDate
             return newVal
           })
           let hash = []
-          const newArr = mapVal.reduce((item, next) => { //对新对象进行去重操作
+          const newArr = mapVal.reduce((item, next) => { 
             hash[next.text] ? '' : hash[next.text] = true && item.push(next);
             return item
           }, []);
@@ -92,12 +93,12 @@ export default {
         }
       })
     },
-    //改变当前记录条数
+
     handleSizeChange(val) {
       this.pagination.size = val
       this.getScore()
     },
-    //改变当前页码，重新发送请求
+
     handleCurrentChange(val) {
       this.pagination.current = val
       this.getScore()

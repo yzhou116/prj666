@@ -1,4 +1,4 @@
-<!--页脚部分-->
+
 <template>
   <footer id="footer">
     <ul>
@@ -18,7 +18,7 @@ export default {
 </script>
 
 <style scoped>
-#footer a {
+/* #footer a {
   color: #919698;
   font-size: 14px;
 }
@@ -33,6 +33,33 @@ export default {
   height: 80px;
   line-height: 80px;
 }
+#footer ul li {
+  color: #919698;
+  font-size: 14px;
+  margin-right: 20px;
+} */
+#footer a {
+  color: #919698;
+  font-size: 14px;
+}
+
+#footer {
+  background-color: #eee;
+  position: absolute;
+
+  width: 100%;
+  height: 80px;
+}
+
+#footer ul {
+
+  border-top: 1px solid #d5d5d5;
+  display: flex;
+  justify-content: center;
+  height: 80px;
+  line-height: 80px;
+}
+
 #footer ul li {
   color: #919698;
   font-size: 14px;
